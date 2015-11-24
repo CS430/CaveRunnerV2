@@ -4,7 +4,7 @@
 PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
-	player = new Player(0.0f, 0.0f, 0.02f, 0.06f, playTextureFilePath);
+	player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playTextureFilePath);
 }
 
 PlayState::~PlayState() {
@@ -24,9 +24,19 @@ void PlayState::update() {
 }
 
 void PlayState::render() {
-	glBegin(GL_TRIANGLES);
+	shader.use();
+
+	GLint textureLocation = shader.getUniformLocation("mySampler");
+	glUniform1i(textureLocation, 0);
+
+	GLint selectedLocation = shader.getUniformLocation("selected");
+	glUniform1i(selectedLocation, true);
+
 		player->update();
-	glEnd();
+
+	player->render();
+
+	shader.unuse();
 }
 
 void PlayState::handleInput() {

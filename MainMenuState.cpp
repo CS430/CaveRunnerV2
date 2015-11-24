@@ -36,7 +36,6 @@ void MainMenuState::render() {
 	GLint textureLocation = shader.getUniformLocation("mySampler");
 	glUniform1i(textureLocation, 0);
 
-
 	GLint selectedLocation = shader.getUniformLocation("selected");
 	glUniform1i(selectedLocation, labels[0]->isSelected());
 
@@ -68,7 +67,9 @@ void MainMenuState::handleInput() {
 		}
 		
 		if (index == 1) {
-			//quit game
+			glfwTerminate();
 		}
+	} else if (Keys::isPressed(Keys::ESC)) {
+		glfwTerminate();
 	}
 }

@@ -2,20 +2,12 @@
 
 #include <vector>
 
-std::vector<std::vector<float>> vertices;
+#include <GLFW\glfw3.h>
 
-Player::Player(float xPos, float yPos, float startW, float startH, std::string filePathToTexture) : Entity(xPos, yPos, startW, startH, filePathToTexture) {
+Player::Player(float xPos, float yPos, float startW, float startH, std::string imgPath) : Entity(xPos, yPos, startW, startH, imgPath) {
+	objSprite.init();
 	xAccel = 0.0f;
 	yAccel = 0.0f;
-
-	vertices = {
-		{ xPos - width, yPos - height },
-		{ xPos - width, yPos + height },
-		{ xPos + width, yPos - height },
-		{ xPos - width, yPos + height },
-		{ xPos + width, yPos + height },
-		{ xPos + width, yPos - height }
-	};
 }
 
 Player::~Player() {
@@ -36,10 +28,6 @@ float Player::getXPos() {
 
 float Player::getYPos() {
 	return y;
-}
-
-std::vector<std::vector<float>> Player::getVertices() {
-	return vertices;
 }
 
 void Player::setYAccel(float y) {
@@ -67,8 +55,7 @@ float Player::getHeight() {
 }
 
 void Player::update() {
-	yAccel -= gravity;
-	y += yAccel;
+	objSprite.setY(y += yAccel -= gravity);
 
 	if (xAccel >= playerAcccel) {
 		xAccel -= friction;
@@ -78,7 +65,7 @@ void Player::update() {
 		xAccel = 0.0f;
 	}
 
-	x += xAccel;
+	objSprite.setX(x += xAccel);
 
 	if (isCrouching) {
 		height = height + width;
@@ -89,22 +76,13 @@ void Player::update() {
 	if (y - height <= -1.0f) {
 		y = -1.0f + height;
 		yAccel = 0.0f;
+
 		hasDoubleJumped = false;
 	}
 
-	vertices = {
-		{ x - width, y - height },
-		{ x - width, y + height },
-		{ x + width, y - height },
-		{ x - width, y + height },
-		{ x + width, y + height },
-		{ x + width, y - height }
-	};
-
-	for (int i = 0; i < vertices.size(); i++) {
-		glTexCoord2f(0.5f, 0.5f);
-		glVertex2f(vertices[i][0], vertices[i][1]);
-	}
+	objSprite.setH(height);
+	objSprite.update();
+	objSprite.setW(width);
 
 	if (isCrouching) {
 		height = height + width;
@@ -116,5 +94,10 @@ void Player::update() {
 }
 
 void Player::render() {
-	//fill buffer with new player position as a 
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, objTexture.id);
+
+	objSprite.render();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

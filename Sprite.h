@@ -1,7 +1,10 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include "Vertex.h"
+
 #include <GL\glew.h>
+#include <vector>
 
 class Sprite {
 public:
@@ -15,12 +18,16 @@ public:
 
 	void setX(float newX);
 	void setY(float newY);
+	void setH(float newH);
+	void setW(float newW);
 
 private:
 	float x;
 	float y;
 	float width;
 	float height;
+
+	std::vector<Position> vertexPosition;
 
 	GLuint vboID;
 };

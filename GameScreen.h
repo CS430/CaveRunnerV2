@@ -52,7 +52,7 @@ private:
 	const char* TITLE = "CaveRunner";
 
 	const int TARGET_FPS = 60;
-	const double TARGET_TIME = 600 / TARGET_FPS;
+	const double TARGET_TIME = 1000 / TARGET_FPS;
 	float averageFPS;
 
 	int frameCount;

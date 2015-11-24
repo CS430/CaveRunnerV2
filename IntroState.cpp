@@ -3,7 +3,7 @@
 #include <GLFW\glfw3.h>
 #include "keys.h"
 
-IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(300), background(-1.0, -1.0, 2.0, 2.0, backgroundFilePath) {
+IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(3000), background(-1.0, -1.0, 2.0, 2.0, backgroundFilePath) {
 	
 }
 

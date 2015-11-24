@@ -21,28 +21,8 @@ void GameScreen::run() {
 	initSystems();
 
 	while (!glfwWindowShouldClose(window)) {
-		startTime = glfwGetTime();
-
 		update();
 		render();
-
-		exeTime = glfwGetTime() - startTime;
-		sleepTime = TARGET_TIME - exeTime;
-
-		if (sleepTime > 0) {
-			Sleep(sleepTime);
-		}
-
-		totalTime += glfwGetTime() - startTime;
-		frameCount++;
-
-		if (frameCount == TARGET_FPS) {
-			averageFPS = frameCount / totalTime;
-			fprintf(stderr, "average FPS: %lf \n", averageFPS);
-
-			frameCount = 0;
-			totalTime = 0;
-		}
 
 		glfwPollEvents();
 	}
