@@ -6,16 +6,15 @@
 
 #include <iostream>
 
-StateManager::StateManager() : previousState(-1), currentState(-1), gameStates(4)
-{
+StateManager::StateManager() : previousState(-1), currentState(-1), gameStates(4) {
 
 }
 
 StateManager::~StateManager() {
+
 }
 
-void StateManager::init() 
-{
+void StateManager::init() {
 	loadState(StateManager::INTRO);
 }
 
@@ -24,8 +23,7 @@ void StateManager::loadState(int state) {
 	currentState = state;
 	unloadState(previousState);
 
-	switch (state)
-	{
+	switch (state) {
 		case INTRO:
 			gameStates[state] = new IntroState(this);
 			break;
@@ -49,18 +47,15 @@ void StateManager::loadState(int state) {
 }
 
 void StateManager::unloadState(int state) {
-	if (!previousState == -1)
-	{
+	if (!previousState == -1) {
 		delete gameStates[state];
 	}
 }
 
 void StateManager::update() {
-	
 	gameStates[currentState]->update();
 }
 
-void StateManager::render() 
-{
+void StateManager::render() {
 	gameStates[currentState]->render();
 }

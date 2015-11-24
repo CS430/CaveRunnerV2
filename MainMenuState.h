@@ -1,11 +1,9 @@
+#ifndef MAIN_MENU_STATE_H
+#define MAIN_MENU_STATE_H
+
 #include "State.h"
 #include "GLSLProgram.h"
 #include "Label.h"
-//#include "Sprite.h"
-//#include "GLTexture.h"
-
-#ifndef MAIN_MENU_STATE_H
-#define MAIN_MENU_STATE_H
 
 class MainMenuState : public State {
 public:

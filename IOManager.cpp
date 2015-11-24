@@ -2,12 +2,10 @@
 
 #include <fstream>
 
- bool IOManager::readFileToBUffer(std::string filePath, std::vector<unsigned char>& buffer)
-{
+bool IOManager::readFileToBUffer(std::string filePath, std::vector<unsigned char>& buffer) {
 	std::ifstream file(filePath, std::ios::binary);
 
-	if (file.fail())
-	{
+	if (file.fail()) {
 		fprintf(stderr, "Error reading file: %s", filePath);
 		return false;
 	}
@@ -25,6 +23,4 @@
 	file.close();
 
 	return true;
-
 }
-

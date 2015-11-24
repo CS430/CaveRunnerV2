@@ -20,21 +20,15 @@
 
 */
 
-#pragma once
-
 #ifndef KEYS_H
 #define KEYS_H
 
 #include <vector>
 
-class Keys
-{
-
+class Keys {
 	static std::vector<bool> keyState;
 	static std::vector<bool> previousKeyState;
 public:
-
-
 	static void keyPressed(int i, bool b);
 	static void update();
 	static bool isPressed(int x);
@@ -49,12 +43,6 @@ public:
 	static const int A = 4;
 	static const int S = 5;
 	static const int D = 6;
-
-
-
 };
-
-
-
 
 #endif

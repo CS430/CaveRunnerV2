@@ -1,43 +1,41 @@
-﻿Build started 11/23/2015 20:29:39.
+﻿Build started 11/23/2015 23:36:31.
      1>Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp PauseState.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
          StateManager.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(52): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(50): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
          Sprite.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(24): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(20): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(25): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(30): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(35): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(36): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(41): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(46): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(52): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
          PlayState.cpp
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(25): warning C4413: 'PlayState::playTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
                  c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(25) : see declaration of 'PlayState::playTextureFilePath'
          Player.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\player.cpp(103): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\player.cpp(104): warning C4018: '<' : signed/unsigned mismatch
          picoPNG.cpp
          PauseState.cpp
          MainMenuState.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(26): warning C4413: 'MainMenuState::playTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
-                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(26) : see declaration of 'MainMenuState::playTextureFilePath'
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(27): warning C4413: 'MainMenuState::quitTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
-                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(27) : see declaration of 'MainMenuState::quitTextureFilePath'
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(12): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(13): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(24): warning C4413: 'MainMenuState::playTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
+                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(24) : see declaration of 'MainMenuState::playTextureFilePath'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(25): warning C4413: 'MainMenuState::quitTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
+                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(25) : see declaration of 'MainMenuState::quitTextureFilePath'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(9): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(10): warning C4305: 'argument' : truncation from 'double' to 'float'
          Label.cpp
          Keys.cpp
          IOManager.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(18): warning C4244: 'initializing' : conversion from 'std::streamoff' to 'int', possible loss of data
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(21): warning C4244: '-=' : conversion from 'std::streamoff' to 'int', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(16): warning C4244: 'initializing' : conversion from 'std::streamoff' to 'int', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(19): warning C4244: '-=' : conversion from 'std::streamoff' to 'int', possible loss of data
          IntroState.cpp
          ImageLoader.cpp
          GLSLProgram.cpp
          GameScreen.cpp
-     1>c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY' : macro redefinition
-                 c:\opengl-wrappers\glfw\glfw-3.1.2.bin.win32\include\glfw\glfw3.h(85) : see previous definition of 'APIENTRY'
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\gamescreen.cpp(34): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\gamescreen.cpp(41): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\gamescreen.cpp(33): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\gamescreen.cpp(40): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
          Entity.cpp
          Driver.cpp
          Background.cpp
@@ -66,4 +64,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.96
+Time Elapsed 00:00:06.78

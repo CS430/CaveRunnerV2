@@ -1,7 +1,7 @@
-#include "State.h"
-
 #ifndef PAUSE_STATE_H
 #define PAUSE_STATE_H
+
+#include "State.h"
 
 class PauseState : public State {
 public:

@@ -32,26 +32,24 @@ void PlayState::render() {
 void PlayState::handleInput() {
 	if (Keys::isDown(Keys::S)) {
 		player->setIsCrouching(true);
-	}
-
-	if (Keys::isPressed(Keys::ESC)) {
-		stateManager->loadState(StateManager::PAUSED);
-	}
-
-	if (Keys::isDown(Keys::D)) {
-		if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
-			player->setXAccel(player->playerAcccel);
+	} else {
+		if (Keys::isPressed(Keys::ESC)) {
+			stateManager->loadState(StateManager::PAUSED);
 		}
-	}
 
-	if (Keys::isDown(Keys::A)) {
-		if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
-			player->setXAccel(-player->playerAcccel);
+		if (Keys::isDown(Keys::D)) {
+			if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
+				player->setXAccel(player->playerAcccel);
+			}
 		}
-	}
 
-	if (Keys::isPressed(Keys::W)) {
-		if (!player->getIsCrouching()) {
+		if (Keys::isDown(Keys::A)) {
+			if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
+				player->setXAccel(-player->playerAcccel);
+			}
+		}
+
+		if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {
 			if (player->getYPos() - player->getHeight() <= -1.0f) {
 				player->setYAccel(player->jumpAccel);
 			} else if (!player->getHasDoubleJumped()) {

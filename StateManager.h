@@ -1,7 +1,7 @@
-#include <vector>
-
 #ifndef STATEMANAGER_H
 #define STATEMANAGER_H
+
+#include <vector>
 
 class State;
 class StateManager {

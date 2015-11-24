@@ -2,16 +2,12 @@
 #include "Vertex.h"
 #include <cstddef>
 
+Sprite::Sprite(float initX, float initY, float initWidth, float initHeight) : x(initX), y(initY), width(initWidth), height(initHeight), vboID(0) {
 
-Sprite::Sprite(float initX, float initY, float initWidth, float initHeight) : x(initX), y(initY), width(initWidth), height(initHeight), vboID(0)
-{
 }
 
-void Sprite::init() 
-{
-
-	if (vboID == 0)
-	{
+void Sprite::init() {
+	if (vboID == 0)	{
 		glGenBuffers(1, &vboID);
 	}
 
@@ -22,7 +18,6 @@ void Sprite::init()
 	vertexData[0].setPosition(x + width, y + height);
 	vertexData[0].setUV(1.0f, 1.0f);
 	vertexData[0].setColor(0.0, 0.0, 0.0, 0.0);
-
 
 	//top left
 	vertexData[1].setPosition(x, y + height);
@@ -45,42 +40,30 @@ void Sprite::init()
 	vertexData[4].setUV(1.0f, 0.0f);
 	vertexData[4].setColor(0.0, 0.0, 0.0, 0.0);
 
-
 	//top right
 	vertexData[5].setPosition(x + width, y + height);
 	vertexData[5].setUV(1.0f, 1.0f);
 	vertexData[5].setColor(0.0, 0.0, 0.0, 0.0);
 
-
-
-
-
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 }
 
-Sprite::~Sprite()
-{
-	if (vboID != 0)
-	{
+Sprite::~Sprite() {
+	if (vboID != 0) {
 		glDeleteBuffers(1, &vboID);	//setting vboID to a value thats not 0
 	}
 }
 
 
-void Sprite::update()
-{
+void Sprite::update() {
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 	//glBufferSubData(GL_ARRAY_BUFFER, offsetof(Vertex, position), sizeof(float)*2,);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Sprite:: render()
-{
-
-
+void Sprite:: render() {
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 
 	glEnableVertexAttribArray(0);
@@ -101,12 +84,10 @@ void Sprite:: render()
 }
 
 
-void Sprite::setX(float newX)
-{
+void Sprite::setX(float newX) {
 	x = newX;
 }
 
-void Sprite::setY(float newY)
-{
+void Sprite::setY(float newY) {
 	y = newY;
 }

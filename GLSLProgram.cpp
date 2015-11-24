@@ -51,8 +51,7 @@ void GLSLProgram::linkShaders() {
 	GLint isLinked = 0;
 	glGetProgramiv(programID, GL_LINK_STATUS, (int *)&isLinked);
 
-	if (isLinked == GL_FALSE) 
-	{
+	if (isLinked == GL_FALSE) {
 		GLint maxLength = 0;
 		glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &maxLength);
 
@@ -80,37 +79,27 @@ void GLSLProgram::linkShaders() {
 	glDeleteShader(fragShaderID);
 }
 
-
 /*
 void GLSLProgram::addAttribute(const std::string& attributeName) {
 	glBindAttribLocation(programID, numAttribute, attributeName.c_str());
 	numAttribute++;
 }
 */
-void GLSLProgram::addAttribute(const std::string& attributeName)
-{
+void GLSLProgram::addAttribute(const std::string& attributeName) {
 	glBindAttribLocation(programID, numAttribute, attributeName.c_str());
 	numAttribute++;
 }
 
-
-
-GLuint GLSLProgram::getUniformLocation(const std::string& uniformName)
-{
+GLuint GLSLProgram::getUniformLocation(const std::string& uniformName) {
 	GLuint location =  glGetUniformLocation(programID, uniformName.c_str());
 	 
-	if (location == GL_INVALID_INDEX)
-	{
+	if (location == GL_INVALID_INDEX) {
 		fprintf(stderr, "Error: Uniform: %s ; not found in shader.", uniformName.c_str());
 		return NULL;
-	}
-	else
-	{
+	} else {
 		return location;
 	}
 }
-
-
 
 void GLSLProgram::use() {
 	glUseProgram(programID);
@@ -122,8 +111,8 @@ void GLSLProgram::use() {
 
 void GLSLProgram::unuse() {
 	glUseProgram(0);
-	for (int i = 0; i < numAttribute; i++)
-	{
+	
+	for (int i = 0; i < numAttribute; i++) {
 		glDisableVertexAttribArray(i);
 	}
 }
@@ -164,6 +153,7 @@ void GLSLProgram::compileShader(const std::string& filepath, GLuint id) {
 
 		fprintf(stderr, "%s", &errorLog[0]);
 		fprintf(stderr, "Shader failed to compile: %s", filepath);
+
 		return;
 	}
 }

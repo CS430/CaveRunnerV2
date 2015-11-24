@@ -1,12 +1,10 @@
-#pragma once
+#ifndef GAMESCREEN_H
+#define GAMESCREEN_H
 
 #include <GLFW\glfw3.h>
 #include "StateManager.h"
 #include "GLSLProgram.h"
 #include "Sprite.h"
-
-#ifndef GAMESCREEN_H
-#define GAMESCREEN_H
 
 class GameScreen {
 public:
@@ -53,19 +51,15 @@ private:
 	const int HEIGHT = 540;
 	const char* TITLE = "CaveRunner";
 
-
 	const int TARGET_FPS = 60;
-	const double TARGET_TIME = 1000 / TARGET_FPS;
+	const double TARGET_TIME = 600 / TARGET_FPS;
 	float averageFPS;
-
 
 	int frameCount;
 	double startTime;
 	double exeTime;
 	double sleepTime;
 	double totalTime;
-
-	
 
 	GLFWwindow* window;
 	StateManager stateManager;

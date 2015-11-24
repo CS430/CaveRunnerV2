@@ -1,14 +1,10 @@
-#pragma once
+#ifndef GLSLPROGRAM_H
+#define GLSLPROGRAM_H
 
 #include <string>
 #include <GL/glew.h>
 
-
-#ifndef GLSLPROGRAM_H
-#define GLSLPROGRAM_H
-class GLSLProgram
-{
-
+class GLSLProgram {
 public:
 	GLSLProgram();
 	~GLSLProgram();
@@ -21,12 +17,10 @@ public:
 
 	GLuint getUniformLocation(const std::string& uniformName);
 
-
 	void use();
 	void unuse();
 
 private:
-
 	int numAttribute;
 
 	void compileShader(const std::string& filepath, GLuint id);
@@ -34,8 +28,6 @@ private:
 
 	GLuint vertexShaderID;
 	GLuint fragShaderID;
-
 };
-
 
 #endif

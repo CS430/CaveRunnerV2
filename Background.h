@@ -1,8 +1,9 @@
-#pragma once
+#ifndef BACKGROUND_H
+#define BACKGROUND_H
+
 #include "Entity.h"
-class Background :
-	public Entity
-{
+
+class Background : public Entity {
 public:
 	Background(float startX, float startY, float startW, float startH, std::string filePathToTexture);
 	~Background();
@@ -11,3 +12,4 @@ public:
 	void render();
 };
 
+#endif

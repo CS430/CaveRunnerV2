@@ -1,7 +1,7 @@
-#include "StateManager.h"
-
 #ifndef STATE_H
 #define STATE_H
+
+#include "StateManager.h"
 
 class State {
 public:

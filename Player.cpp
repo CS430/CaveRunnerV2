@@ -1,4 +1,5 @@
 #include "Player.h"
+
 #include <vector>
 
 std::vector<std::vector<float>> vertices;
@@ -74,7 +75,7 @@ void Player::update() {
 	} else if (xAccel <= -playerAcccel) {
 		xAccel += friction;
 	} else {
-		xAccel = 0.000000000000000000f;
+		xAccel = 0.0f;
 	}
 
 	x += xAccel;

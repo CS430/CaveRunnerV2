@@ -10,19 +10,12 @@ uniform int selected;
 uniform float time;
 uniform sampler2D mySampler;
 
-void main()
-{
-
+void main() {
 	vec4 textureColor = texture(mySampler, fragmentUV);
 
-	if(selected == 1)
-	{
+	if(selected == 1) {
 		color = textureColor + vec3(1.0, 0.0, 0.0);
-	}
-	else
-	{
+	} else {
 		color = textureColor;
 	}
-	
-	
 }

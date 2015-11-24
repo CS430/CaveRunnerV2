@@ -1,9 +1,8 @@
 #include <fstream>
+#include <Windows.h>
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
-
-#include <Windows.h>
 
 #include "GameScreen.h"
 #include "StateManager.h"
@@ -132,8 +131,6 @@ void GameScreen::handleInput(GLFWwindow* window, int key, int scancode, int acti
 		Keys::keyPressed(key, false);
 	}
 }
-
-
 
 void GameScreen::end() {
 	glfwDestroyWindow(window);
