@@ -34,6 +34,9 @@
     <Filter Include="shaders\MenuStateShaders">
       <UniqueIdentifier>{4e612718-a408-41fa-b9aa-db853731373a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\PlayStateShaders">
+      <UniqueIdentifier>{fd273013-4eed-412e-a5c7-3bc665256ffb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Driver.cpp">
@@ -159,6 +162,12 @@
     </None>
     <None Include="IntroVertShader.glsl">
       <Filter>shaders\IntroStateShaders</Filter>
+    </None>
+    <None Include="PlayFragShader.glsl">
+      <Filter>shaders\PlayStateShaders</Filter>
+    </None>
+    <None Include="PlayVertShader.glsl">
+      <Filter>shaders\PlayStateShaders</Filter>
     </None>
   </ItemGroup>
 </Project>

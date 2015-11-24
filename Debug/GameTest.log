@@ -1,10 +1,49 @@
-﻿Build started 11/23/2015 2:52:42 PM.
-     1>Project "C:\Users\CPenz11\Downloads\CaveRunnerr\CaveRunner-master\GameTest.vcxproj" on node 2 (Build target(s)).
+﻿Build started 11/23/2015 19:29:49.
+     1>Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt IntroState.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp PauseState.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
+         StateManager.cpp
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(52): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+         Sprite.cpp
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(24): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(30): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(35): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(41): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(46): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\sprite.cpp(52): warning C4244: 'argument' : conversion from 'double' to 'GLubyte', possible loss of data
+         PlayState.cpp
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(25): warning C4413: 'PlayState::playTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
+                 c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(25) : see declaration of 'PlayState::playTextureFilePath'
+         Player.cpp
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\player.cpp(100): warning C4018: '<' : signed/unsigned mismatch
+         picoPNG.cpp
+         PauseState.cpp
+         MainMenuState.cpp
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(26): warning C4413: 'MainMenuState::playTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
+                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(26) : see declaration of 'MainMenuState::playTextureFilePath'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(27): warning C4413: 'MainMenuState::quitTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
+                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(27) : see declaration of 'MainMenuState::quitTextureFilePath'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(12): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(13): warning C4305: 'argument' : truncation from 'double' to 'float'
+         Label.cpp
+         Keys.cpp
+         IOManager.cpp
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(18): warning C4244: 'initializing' : conversion from 'std::streamoff' to 'int', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(21): warning C4244: '-=' : conversion from 'std::streamoff' to 'int', possible loss of data
          IntroState.cpp
+         ImageLoader.cpp
+         GLSLProgram.cpp
+         GameScreen.cpp
+     1>c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY' : macro redefinition
+                 c:\opengl-wrappers\glfw\glfw-3.1.2.bin.win32\include\glfw\glfw3.h(85) : see previous definition of 'APIENTRY'
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\gamescreen.cpp(38): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\gamescreen.cpp(45): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Entity.cpp
+         Driver.cpp
+         Background.cpp
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\CPenz11\Downloads\CaveRunnerr\CaveRunner-master\Debug\GameTest.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\opengl-wrappers\glew\glew-1.13.0\lib\Release\Win32" /LIBPATH:"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\lib-vc2013" opengl32.lib glu32.lib glew32.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\CPenz11\Downloads\CaveRunnerr\CaveRunner-master\Debug\GameTest.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\CPenz11\Downloads\CaveRunnerr\CaveRunner-master\Debug\GameTest.lib" /MACHINE:X86 Debug\Background.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\Debug\GameTest.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\opengl-wrappers\glew\glew-1.13.0\lib\Release\Win32" /LIBPATH:"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\lib-vc2013" opengl32.lib glu32.lib glew32.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\Debug\GameTest.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\Debug\GameTest.lib" /MACHINE:X86 Debug\Background.obj
          Debug\Driver.obj
          Debug\Entity.obj
          Debug\GameScreen.obj
@@ -21,9 +60,10 @@
          Debug\PlayState.obj
          Debug\Sprite.obj
          Debug\StateManager.obj
-         GameTest.vcxproj -> C:\Users\CPenz11\Downloads\CaveRunnerr\CaveRunner-master\Debug\GameTest.exe
-     1>Done Building Project "C:\Users\CPenz11\Downloads\CaveRunnerr\CaveRunner-master\GameTest.vcxproj" (Build target(s)).
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         GameTest.vcxproj -> C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\Debug\GameTest.exe
+     1>Done Building Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.43
+Time Elapsed 00:00:08.50

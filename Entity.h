@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ENTITY_H
 #define ENTITY_H
 
@@ -39,10 +37,7 @@ public:
 	virtual bool isLeft();
 	virtual bool isRight();
 
-
-
 protected:
-
 	float x;
 	float y;
 

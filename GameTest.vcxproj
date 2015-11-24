@@ -114,6 +114,8 @@
     <None Include="IntroVertShader.glsl" />
     <None Include="MenuFragShader.glsl" />
     <None Include="MenuVertShader.glsl" />
+    <None Include="PlayFragShader.glsl" />
+    <None Include="PlayVertShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
