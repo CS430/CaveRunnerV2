@@ -69,12 +69,12 @@ void Player::update() {
 	yAccel -= gravity;
 	y += yAccel;
 
-	if (xAccel > 0.0f) {
+	if (xAccel >= playerAcccel) {
 		xAccel -= friction;
-	} else if (xAccel < 0.0f) {
+	} else if (xAccel <= -playerAcccel) {
 		xAccel += friction;
 	} else {
-		xAccel = 0;
+		xAccel = 0.000000000000000000f;
 	}
 
 	x += xAccel;

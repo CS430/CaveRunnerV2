@@ -3,19 +3,15 @@
 #include <GLFW\glfw3.h>
 #include "keys.h"
 
-IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(400), background(-1.0, -1.0, 2.0, 2.0, backgroundFilePath)
-{
+IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(300), background(-1.0, -1.0, 2.0, 2.0, backgroundFilePath) {
 	
 }
 
-IntroState::~IntroState() 
-{
+IntroState::~IntroState() {
 
 }
 
-void IntroState::init() 
-{
-
+void IntroState::init() {
 	shader.compileShaders("IntroVertShader.glsl", "IntroFragShader.glsl");
 	shader.addAttribute("vertexPosition");
 	shader.addAttribute("vertexColor");
@@ -28,28 +24,20 @@ void IntroState::init()
 void IntroState::update() {
 	handleInput();
 	
-	if (tick < target / 2)
-	{
+	if (tick < target / 2) {
 		alpha += 1.0f / (target / 2);
 		tick++;
-	}
-	 else if (tick >= target / 2 && tick < target)
-	 {
+	} else if (tick >= target / 2 && tick < target) {
 		alpha -= 1.0f / (target / 2);
 		tick++;
-	}
-	else if (tick >= target)
-	{
+	} else if (tick >= target) {
 		 stateManager->loadState(StateManager::MAINMENU);
-	}
-	else
-	{
+	} else {
 		fprintf(stderr, "Error: update method - IntorState");
 	}
 }
 
-void IntroState::render()
-{
+void IntroState::render() {
 	shader.use();
 	GLint textureLocation = shader.getUniformLocation("mySampler");
 	glUniform1i(textureLocation, 0);
@@ -60,13 +48,10 @@ void IntroState::render()
 	background.render();
 
 	shader.unuse();
-
-	
 }
 
 void IntroState::handleInput() {
-	if (Keys::isPressed(Keys::ENTER))
-	{
+	if (Keys::isPressed(Keys::ENTER)) {
 		stateManager->loadState(StateManager::MAINMENU);
 	}
 }
