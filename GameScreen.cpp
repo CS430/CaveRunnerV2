@@ -10,7 +10,6 @@
 #include "Keys.h"
 #include "GLSLProgram.h"
 
-
 GameScreen::GameScreen(){
 
 }
@@ -22,9 +21,7 @@ GameScreen::~GameScreen() {
 void GameScreen::run() {
 	initSystems();
 
-	while (!glfwWindowShouldClose(window)) 
-	{
-		
+	while (!glfwWindowShouldClose(window)) {
 		startTime = glfwGetTime();
 
 		update();
@@ -33,15 +30,14 @@ void GameScreen::run() {
 		exeTime = glfwGetTime() - startTime;
 		sleepTime = TARGET_TIME - exeTime;
 
-		if (sleepTime > 0)
-		{
+		if (sleepTime > 0) {
 			Sleep(sleepTime);
 		}
 
 		totalTime += glfwGetTime() - startTime;
 		frameCount++;
-		if (frameCount == TARGET_FPS)
-		{
+
+		if (frameCount == TARGET_FPS) {
 			averageFPS = frameCount / totalTime;
 			fprintf(stderr, "average FPS: %lf \n", averageFPS);
 
@@ -54,8 +50,6 @@ void GameScreen::run() {
 
 	end();
 }
-
-
 
 void GameScreen::initSystems() {
 	/*----------------------------------------------------*/
@@ -103,21 +97,16 @@ void GameScreen::initSystems() {
 	glfwSetKeyCallback(window, handleInput);
 	stateManager.init();
 
-
 	//shader.compileShaders("VertexShader.glsl", "FragmentShader.glsl");
 	//shader.addAttribute("vertexPosition");
 	//shader.linkShaders();
 	//sprite.init(-1.0f, -1.0f, 1.0f, 1.0f);
 }
 
-
-
 void GameScreen::update() {
 	stateManager.update();
 	Keys::update();
 }
-
-
 
 void GameScreen::render() {
 	glClearDepth(1.0);
@@ -132,32 +121,21 @@ void GameScreen::render() {
 	glfwSwapBuffers(window);
 }
 
-
-
-void GameScreen::draw() 
-{
+void GameScreen::draw() {
 
 }
 
-
-
-void GameScreen::handleInput(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (action == GLFW_PRESS)
-	{
+void GameScreen::handleInput(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	if (action == GLFW_PRESS) {
 		Keys::keyPressed(key, true);
-	}
-	else if (action == GLFW_RELEASE)
-	{
+	} else if (action == GLFW_RELEASE) {
 		Keys::keyPressed(key, false);
 	}
-
 }
 
 
 
-void GameScreen::end()
-{
+void GameScreen::end() {
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }

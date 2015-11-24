@@ -2,9 +2,9 @@
 #include "Keys.h"
 
 PlayState::PlayState(StateManager* sm) : stateManager(sm) {
-	glClearColor(0.25f, 0.1f, 0.15f, 0.0f);
+	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
-	player = new Player(0.0f, 0.0f, 0.0f, 0.0f, playTextureFilePath);
+	player = new Player(0.0f, 0.0f, 0.02f, 0.06f, playTextureFilePath);
 }
 
 PlayState::~PlayState() {
@@ -20,13 +20,13 @@ void PlayState::init() {
 }
 
 void PlayState::update() {
-	glBegin(GL_TRIANGLES);
-		player->update();
-	glEnd();
+	handleInput();
 }
 
 void PlayState::render() {
-
+	glBegin(GL_TRIANGLES);
+		player->update();
+	glEnd();
 }
 
 void PlayState::handleInput() {

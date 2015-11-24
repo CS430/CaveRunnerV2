@@ -10,11 +10,11 @@ public:
 	Player(float startX, float startY, float startW, float startH, std::string filePathToTexture);
 	~Player();
 
-	const float gravity = 0.000003f;
-	const float friction = 0.0000005f;
-	const float playerAcccel = 0.000001f;
-	const float maxPlayerSpeed = 0.00075f;
-	const float jumpAccel = 0.0015f;
+	const float gravity = 0.0009f;
+	const float friction = 0.00025f;
+	const float playerAcccel = 0.0005f;
+	const float maxPlayerSpeed = 0.02f;
+	const float jumpAccel = 0.025f;
 
 	void update();
 	void render();
