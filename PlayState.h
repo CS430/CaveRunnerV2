@@ -22,7 +22,7 @@ private:
 	Player* player;
 
 	//File paths to our Image Resources
-	const std::string& playTextureFilePath = "Resources/Images/player_standing.png";
+	const std::string& playTextureFilePath = "Resources/Images/player_idle_right.png";
 
 	//Player player;
 	GLTexture playerTexture;

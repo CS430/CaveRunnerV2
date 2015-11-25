@@ -21,8 +21,17 @@ void GameScreen::run() {
 	initSystems();
 
 	while (!glfwWindowShouldClose(window)) {
+		startTime = glfwGetTime();
+
 		update();
 		render();
+
+		exeTime = glfwGetTime() - startTime;
+		sleepTime = TARGET_TIME - exeTime;
+
+		if (sleepTime > 0) {
+			Sleep(sleepTime);
+		}
 
 		glfwPollEvents();
 	}

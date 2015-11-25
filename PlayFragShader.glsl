@@ -6,7 +6,6 @@ in vec2 fragmentUV;
 
 out vec4 color;
 
-uniform int selected;
 uniform float time;
 uniform sampler2D mySampler;
 

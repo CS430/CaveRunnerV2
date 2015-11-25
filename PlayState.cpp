@@ -32,8 +32,7 @@ void PlayState::render() {
 	GLint selectedLocation = shader.getUniformLocation("selected");
 	glUniform1i(selectedLocation, true);
 
-		player->update();
-
+	player->update();
 	player->render();
 
 	shader.unuse();
@@ -43,6 +42,8 @@ void PlayState::handleInput() {
 	if (Keys::isDown(Keys::S)) {
 		player->setIsCrouching(true);
 	} else {
+		player->setTexture(player->getIsFacingRight() ? player->idleRight : player->idleLeft);
+
 		if (Keys::isPressed(Keys::ESC)) {
 			stateManager->loadState(StateManager::PAUSED);
 		}
@@ -50,17 +51,21 @@ void PlayState::handleInput() {
 		if (Keys::isDown(Keys::D)) {
 			if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
 				player->setXAccel(player->playerAcccel);
+				player->setTexture(player->runRight);
+				player->setIsFacingRight(true);
 			}
 		}
 
 		if (Keys::isDown(Keys::A)) {
 			if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
 				player->setXAccel(-player->playerAcccel);
+				player->setTexture(player->runLeft);
+				player->setIsFacingRight(false);
 			}
 		}
 
 		if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {
-			if (player->getYPos() - player->getHeight() <= -1.0f) {
+			if (player->getYPosition() - player->getHeight() <= -1.0f) {
 				player->setYAccel(player->jumpAccel);
 			} else if (!player->getHasDoubleJumped()) {
 				player->setYAccel(player->jumpAccel);

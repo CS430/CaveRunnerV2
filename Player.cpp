@@ -1,37 +1,29 @@
 #include "Player.h"
+#include "ImageLoader.h"
 
 #include <vector>
 
 #include <GLFW\glfw3.h>
 
-Player::Player(float xPos, float yPos, float startW, float startH, std::string imgPath) : Entity(xPos, yPos, startW, startH, imgPath) {
+Player::Player(float xPos, float yPos, float startW, float startH, std::string filePath) : Entity(xPos, yPos, startW, startH, filePath) {
 	objSprite.init();
 	xAccel = 0.0f;
 	yAccel = 0.0f;
+
+	slideRight = ImageLoader::loadPNG("Resources/Images/player_slide_right.png");
+	slideLeft = ImageLoader::loadPNG("Resources/Images/player_slide_left.png");
+	runRight = ImageLoader::loadPNG("Resources/Images/player_run_1_right.png");
+	runLeft = ImageLoader::loadPNG("Resources/Images/player_run_1_left.png");
+	idleRight = ImageLoader::loadPNG("Resources/Images/player_idle_right.png");
+	idleLeft = ImageLoader::loadPNG("Resources/Images/player_idle_left.png");
+	jumpRight = ImageLoader::loadPNG("Resources/Images/player_jump_1_right.png");
+	jumpLeft = ImageLoader::loadPNG("Resources/Images/player_jump_1_left.png");
+	fallRight = ImageLoader::loadPNG("Resources/Images/player_fall_1_right.png");
+	fallLeft = ImageLoader::loadPNG("Resources/Images/player_fall_1_left.png");
 }
 
 Player::~Player() {
 
-}
-
-void Player::setXAccel(float x) {
-	xAccel += x;
-}
-
-float Player::getXAccel() {
-	return xAccel;
-}
-
-float Player::getXPos() {
-	return x;
-}
-
-float Player::getYPos() {
-	return y;
-}
-
-void Player::setYAccel(float y) {
-	yAccel = y;
 }
 
 void Player::setHasDoubleJumped(bool j) {
@@ -44,17 +36,21 @@ bool Player::getHasDoubleJumped() {
 
 void Player::setIsCrouching(bool c) {
 	isCrouching = c;
+
+	setTexture(isFacingRight ? slideRight : slideLeft);
 }
 
 bool Player::getIsCrouching() {
 	return isCrouching;
 }
 
-float Player::getHeight() {
-	return height;
-}
-
 void Player::update() {
+	if (yAccel > 0.0f) {
+		setTexture(isFacingRight ? jumpRight : jumpLeft);
+	} else if (yAccel < 0.0f) {
+		setTexture(isFacingRight ? fallRight : fallLeft);
+	}
+
 	objSprite.setY(y += yAccel -= gravity);
 
 	if (xAccel >= playerAcccel) {
@@ -100,4 +96,12 @@ void Player::render() {
 	objSprite.render();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+bool Player::getIsFacingRight() {
+	return isFacingRight;
+}
+
+void Player::setIsFacingRight(bool isRight) {
+	isFacingRight = isRight;
 }

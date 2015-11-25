@@ -19,11 +19,26 @@ public:
 	virtual void setPosition(float newX, float newY);
 
 	virtual float getXPosition();
+	virtual void setXPosition(float x);
+
 	virtual float getYPosition();
+	virtual void setYPosition(float y);
+
+	virtual float getXAccel();
+	virtual void setXAccel(float x);
+
+	virtual float getYAccel();
+	virtual void setYAccel(float y);
+
+	virtual float getHeight();
+
+	virtual void setTexture(GLTexture &texture);
 
 protected:
 	float x;
 	float y;
+	float xAccel = 0;
+	float yAccel = 0;
 
 	float width;
 	float height;
