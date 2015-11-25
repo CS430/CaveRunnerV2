@@ -4,7 +4,7 @@
 PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
-	player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playTextureFilePath);
+	player = new Player(0.0f, 0.0f, 0.05f, 0.10f, playTextureFilePath);
 }
 
 PlayState::~PlayState() {
@@ -12,7 +12,7 @@ PlayState::~PlayState() {
 }
 
 void PlayState::init() {
-	shader.compileShaders("MenuVertShader.glsl", "MenuFragShader.glsl");
+	shader.compileShaders("PlayVertShader.glsl", "PlayFragShader.glsl");
 	shader.addAttribute("vertexPosition");
 	shader.addAttribute("vertexColor");
 	shader.addAttribute("vertexUV");

@@ -1,8 +1,10 @@
 #include "PauseState.h"
 #include "Keys.h"
 
-PauseState::PauseState(StateManager* sm) : stateManager(sm) {
+#include "GL\glew.h"
 
+PauseState::PauseState(StateManager* sm) : stateManager(sm) {
+	glClearColor(0.0765f, 0.0255f, 0.0f, 0.0f);
 }
 
 PauseState::~PauseState() {
