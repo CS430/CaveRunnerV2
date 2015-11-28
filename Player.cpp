@@ -79,12 +79,10 @@ void Player::update() {
 
 	objSprite.setY(y += yAccel -= gravity);
 
-	if (y - height <= -1.0f) {
-		y = -1.0f + height;
-
+	if (y + height <= -1.0f) {
 		yAccel = 0.0f;
-		hasJumped = false;
-		hasDoubleJumped = false;
+
+		isDead = true;
 	}
 
 	objSprite.setX(x += xAccel);
@@ -125,4 +123,12 @@ bool Player::getWasCrouching() {
 
 void Player::setWasCrouching(bool crouching) {
 	wasCrouching = crouching;
+}
+
+bool Player::getIsDead() {
+	return isDead;
+}
+
+void Player::setIsDead(bool dead) {
+	isDead = dead;
 }

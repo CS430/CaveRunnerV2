@@ -34,6 +34,9 @@ public:
 	bool getIsFacingRight();
 	void setIsFacingRight(bool r);
 
+	bool getIsDead();
+	void setIsDead(bool d);
+
 	GLTexture slideRight;
 	GLTexture slideLeft;
 	GLTexture runRight;
@@ -51,6 +54,7 @@ private:
 	bool hasJumped;
 	bool hasDoubleJumped;
 	bool isFacingRight;
+	bool isDead;
 };
 
 #endif

@@ -10,12 +10,13 @@ PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
 	obstacles = { 
-		new Obstacle(-0.5f, -0.6f, 0.05f, 0.1f, playTextureFilePath),
-		new Obstacle(-0.75f, -0.1f, 0.05f, 0.1f, playTextureFilePath),
-		new Obstacle(0.5f, 0.4f, 0.05f, 0.1f, playTextureFilePath)
+		new Obstacle(-0.5f, -0.6f, 0.05f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-0.75f, -0.1f, 0.05f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.5f, 0.4f, 0.05f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.0f, -1.0f, 0.05f, 0.1f, obstacleTexFilePath)
 	};
 
-	player = new Player(0.0f, 0.0f, 0.05f, 0.1f, playTextureFilePath);
+	player = new Player(0.0f, 0.0f, 0.05f, 0.1f, playerTexFilePath);
 }
 
 PlayState::~PlayState() {
@@ -85,40 +86,44 @@ void PlayState::render() {
 }
 
 void PlayState::handleInput() {
-	if (Keys::isDown(Keys::S)) {
-		player->setIsCrouching(true);
+	if (!player->getIsDead()) {
+		if (Keys::isDown(Keys::S)) {
+			player->setIsCrouching(true);
+		} else {
+			player->setTexture(player->getIsFacingRight() ? player->idleRight : player->idleLeft);
+			player->setIsCrouching(false);
+
+			if (Keys::isPressed(Keys::ESC)) {
+				stateManager->loadState(StateManager::PAUSED);
+			}
+
+			if (Keys::isDown(Keys::D)) {
+				if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
+					player->setXAccel(player->getXAccel() + player->playerAcccel);
+					player->setTexture(player->runRight);
+					player->setIsFacingRight(true);
+				}
+			}
+
+			if (Keys::isDown(Keys::A)) {
+				if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
+					player->setXAccel(player->getXAccel() - player->playerAcccel);
+					player->setTexture(player->runLeft);
+					player->setIsFacingRight(false);
+				}
+			}
+
+			if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {
+				if (!player->getHasJumped()) {
+					player->setYAccel(player->jumpAccel);
+					player->setHasJumped(true);
+				} else if (!player->getHasDoubleJumped()) {
+					player->setYAccel(player->jumpAccel);
+					player->setHasDoubleJumped(true);
+				}
+			}
+		}
 	} else {
-		player->setTexture(player->getIsFacingRight() ? player->idleRight : player->idleLeft);
-		player->setIsCrouching(false);
-
-		if (Keys::isPressed(Keys::ESC)) {
-			stateManager->loadState(StateManager::PAUSED);
-		}
-
-		if (Keys::isDown(Keys::D)) {
-			if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
-				player->setXAccel(player->getXAccel() + player->playerAcccel);
-				player->setTexture(player->runRight);
-				player->setIsFacingRight(true);
-			}
-		}
-
-		if (Keys::isDown(Keys::A)) {
-			if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
-				player->setXAccel(player->getXAccel() - player->playerAcccel);
-				player->setTexture(player->runLeft);
-				player->setIsFacingRight(false);
-			}
-		}
-
-		if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {
-			if (!player->getHasJumped()) {
-				player->setYAccel(player->jumpAccel);
-				player->setHasJumped(true);
-			} else if (!player->getHasDoubleJumped()) {
-				player->setYAccel(player->jumpAccel);
-				player->setHasDoubleJumped(true);
-			}
-		}
+		stateManager->loadState(StateManager::MAINMENU);
 	}
 }

@@ -22,7 +22,8 @@ private:
 	Player* player;
 
 	//File paths to our Image Resources
-	const std::string& playTextureFilePath = "Resources/Images/player_idle_right.png";
+	const std::string& playerTexFilePath = "Resources/Images/player_idle_right.png";
+	const std::string& obstacleTexFilePath = "Resources/Images/untextured_block.png";
 
 	//Player player;
 	GLTexture playerTexture;
