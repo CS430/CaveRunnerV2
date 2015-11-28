@@ -7,8 +7,6 @@
 
 Player::Player(float xPos, float yPos, float startW, float startH, std::string filePath) : Entity(xPos, yPos, startW, startH, filePath) {
 	objSprite.init();
-	xAccel = 0.0f;
-	yAccel = 0.0f;
 
 	slideRight = ImageLoader::loadPNG("Resources/Images/player_slide_right.png");
 	slideLeft = ImageLoader::loadPNG("Resources/Images/player_slide_left.png");
@@ -24,6 +22,14 @@ Player::Player(float xPos, float yPos, float startW, float startH, std::string f
 
 Player::~Player() {
 
+}
+
+void Player::setHasJumped(bool j) {
+	hasJumped = j;
+}
+
+bool Player::getHasJumped() {
+	return hasJumped;
 }
 
 void Player::setHasDoubleJumped(bool j) {
@@ -51,8 +57,6 @@ void Player::update() {
 		setTexture(isFacingRight ? fallRight : fallLeft);
 	}
 
-	objSprite.setY(y += yAccel -= gravity);
-
 	if (xAccel >= playerAcccel) {
 		xAccel -= friction;
 	} else if (xAccel <= -playerAcccel) {
@@ -61,20 +65,23 @@ void Player::update() {
 		xAccel = 0.0f;
 	}
 
-	objSprite.setX(x += xAccel);
-
 	if (isCrouching) {
 		height = height + width;
 		width = height - width;
 		height = height - width;
 	}
 
+	objSprite.setY(y += yAccel -= gravity);
+
 	if (y - height <= -1.0f) {
 		y = -1.0f + height;
-		yAccel = 0.0f;
 
+		yAccel = 0.0f;
+		hasJumped = false;
 		hasDoubleJumped = false;
 	}
+
+	objSprite.setX(x += xAccel);
 
 	objSprite.setH(height);
 	objSprite.update();

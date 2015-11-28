@@ -3,6 +3,8 @@
 
 Entity::Entity(float startX, float startY, float startW, float startH, std::string filePathToTexture) : x(startX), y(startY), width(startW), height(startH), textureFilePath(filePathToTexture), objSprite(x, y, width, height) {
 	objTexture = ImageLoader::loadPNG(textureFilePath);
+	xAccel = 0.0f;
+	yAccel = 0.0f;
 }
 
 Entity::~Entity() {
@@ -39,7 +41,7 @@ float Entity::getXAccel() {
 }
 
 void Entity::setXAccel(float x) {
-	xAccel += x;
+	xAccel = x;
 }
 
 float Entity::getYAccel() {
@@ -52,4 +54,40 @@ void Entity::setYAccel(float y) {
 
 float Entity::getHeight() {
 	return height;
+}
+
+float Entity::getWidth() {
+	return width;
+}
+
+void Entity::setHasColidedX(bool hasColided) {
+	hasColidedX = hasColided;
+}
+
+bool Entity::getHasColidedX() {
+	return hasColidedX;
+}
+
+void Entity::setHasColidedY(bool hasColided) {
+	hasColidedY = hasColided;
+}
+
+bool Entity::getHasColidedY() {
+	return hasColidedY;
+}
+
+float Entity::getTopBound() {
+	return y + height;
+}
+
+float Entity::getRightBound() {
+	return x + width;
+}
+
+float Entity::getBottomBound() {
+	return y - height;
+}
+
+float Entity::getLeftBound() {
+	return x - width;
 }

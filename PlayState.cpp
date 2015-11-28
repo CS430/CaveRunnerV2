@@ -1,10 +1,16 @@
 #include "PlayState.h"
 #include "Keys.h"
+#include "Obstacle.h"
+
+#include <cmath>
+
+Obstacle *obstacle;
 
 PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
-	player = new Player(0.0f, 0.0f, 0.05f, 0.10f, playTextureFilePath);
+	obstacle = new Obstacle(-0.5f, -0.75f, 0.05f, 0.1f, playTextureFilePath);
+	player = new Player(0.0f, 0.0f, 0.05f, 0.1f, playTextureFilePath);
 }
 
 PlayState::~PlayState() {
@@ -35,6 +41,36 @@ void PlayState::render() {
 	player->update();
 	player->render();
 
+	if (player->getBottomBound() <= obstacle->getTopBound()
+		&& player->getTopBound() >= obstacle->getBottomBound()
+		&& player->getLeftBound() <= obstacle->getRightBound()
+		&& player->getRightBound() >= obstacle->getLeftBound()) {
+		float rightDist = std::abs (player->getLeftBound() - obstacle->getRightBound());
+		float topDist = std::abs (player->getBottomBound() - obstacle->getTopBound());
+		float leftDist = std::abs (player->getRightBound() - obstacle->getLeftBound());
+		float bottomDist = std::abs (player->getTopBound() - obstacle->getBottomBound());
+
+		if (rightDist < topDist && rightDist < leftDist && rightDist < bottomDist) {
+			player->setXPosition(obstacle->getRightBound() + player->getWidth());
+			player->setXAccel(0.0f);
+		} else if (topDist < rightDist && topDist < leftDist && topDist < bottomDist) {
+			player->setHasJumped(false);
+			player->setHasDoubleJumped(false);
+
+			player->setYPosition(obstacle->getTopBound() + player->getHeight());
+			player->setYAccel(0.0f);
+		} else if (leftDist < topDist && leftDist < rightDist && leftDist < bottomDist) {
+			player->setXPosition(obstacle->getLeftBound() - player->getWidth());
+			player->setXAccel(0.0f);
+		} else if (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist) {
+			player->setYPosition(obstacle->getBottomBound() - player->getHeight());
+			player->setYAccel(0.0f);
+		}
+	}
+
+	obstacle->update();
+	obstacle->render();
+
 	shader.unuse();
 }
 
@@ -50,7 +86,7 @@ void PlayState::handleInput() {
 
 		if (Keys::isDown(Keys::D)) {
 			if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
-				player->setXAccel(player->playerAcccel);
+				player->setXAccel(player->getXAccel() + player->playerAcccel);
 				player->setTexture(player->runRight);
 				player->setIsFacingRight(true);
 			}
@@ -58,15 +94,16 @@ void PlayState::handleInput() {
 
 		if (Keys::isDown(Keys::A)) {
 			if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
-				player->setXAccel(-player->playerAcccel);
+				player->setXAccel(player->getXAccel() - player->playerAcccel);
 				player->setTexture(player->runLeft);
 				player->setIsFacingRight(false);
 			}
 		}
 
 		if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {
-			if (player->getYPosition() - player->getHeight() <= -1.0f) {
+			if (!player->getHasJumped()) {
 				player->setYAccel(player->jumpAccel);
+				player->setHasJumped(true);
 			} else if (!player->getHasDoubleJumped()) {
 				player->setYAccel(player->jumpAccel);
 				player->setHasDoubleJumped(true);

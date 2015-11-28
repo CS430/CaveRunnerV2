@@ -1,7 +1,8 @@
-﻿Build started 11/24/2015 20:52:35.
+﻿Build started 11/28/2015 02:11:08.
      1>Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" on node 2 (Rebuild target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\ckosidowski11\documents\github\caverunnerv2\debug\keys.obj' because it is being used by another process.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp PauseState.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp Obstacle.cpp PauseState.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
          StateManager.cpp
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(50): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
          Sprite.cpp
@@ -23,6 +24,7 @@
          Player.cpp
          picoPNG.cpp
          PauseState.cpp
+         Obstacle.cpp
          MainMenuState.cpp
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(24): warning C4413: 'MainMenuState::playTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
                  c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(24) : see declaration of 'MainMenuState::playTextureFilePath'
@@ -56,6 +58,7 @@
          Debug\Keys.obj
          Debug\Label.obj
          Debug\MainMenuState.obj
+         Debug\Obstacle.obj
          Debug\PauseState.obj
          Debug\picoPNG.obj
          Debug\Player.obj
@@ -68,4 +71,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:07.15
+Time Elapsed 00:00:07.85

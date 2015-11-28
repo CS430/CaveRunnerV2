@@ -11,13 +11,16 @@ public:
 	~Player();
 
 	const float gravity = 0.00075f;
-	const float friction = 0.0005f;
-	const float playerAcccel = 0.001f;
+	const float friction = 0.0004f;
+	const float playerAcccel = 0.0008f;
 	const float maxPlayerSpeed = 0.025f;
 	const float jumpAccel = 0.02f;
 
 	void update();
 	void render();
+
+	void setHasJumped(bool j);
+	bool getHasJumped();
 	
 	void setHasDoubleJumped(bool j);
 	bool getHasDoubleJumped();
@@ -41,6 +44,7 @@ public:
 	
 private:
 	bool isCrouching;
+	bool hasJumped;
 	bool hasDoubleJumped;
 	bool isFacingRight;
 };
