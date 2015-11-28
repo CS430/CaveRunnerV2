@@ -28,6 +28,9 @@ public:
 	void setIsCrouching(bool c);
 	bool getIsCrouching();
 
+	void setWasCrouching(bool c);
+	bool getWasCrouching();
+
 	bool getIsFacingRight();
 	void setIsFacingRight(bool r);
 
@@ -44,6 +47,7 @@ public:
 	
 private:
 	bool isCrouching;
+	bool wasCrouching;
 	bool hasJumped;
 	bool hasDoubleJumped;
 	bool isFacingRight;

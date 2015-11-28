@@ -4,12 +4,17 @@
 
 #include <cmath>
 
-Obstacle *obstacle;
+std::vector<Obstacle*> obstacles;
 
 PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
-	obstacle = new Obstacle(-0.5f, -0.75f, 0.05f, 0.1f, playTextureFilePath);
+	obstacles = { 
+		new Obstacle(-0.5f, -0.6f, 0.05f, 0.1f, playTextureFilePath),
+		new Obstacle(-0.75f, -0.1f, 0.05f, 0.1f, playTextureFilePath),
+		new Obstacle(0.5f, 0.4f, 0.05f, 0.1f, playTextureFilePath)
+	};
+
 	player = new Player(0.0f, 0.0f, 0.05f, 0.1f, playTextureFilePath);
 }
 
@@ -41,35 +46,40 @@ void PlayState::render() {
 	player->update();
 	player->render();
 
-	if (player->getBottomBound() <= obstacle->getTopBound()
-		&& player->getTopBound() >= obstacle->getBottomBound()
-		&& player->getLeftBound() <= obstacle->getRightBound()
-		&& player->getRightBound() >= obstacle->getLeftBound()) {
-		float rightDist = std::abs (player->getLeftBound() - obstacle->getRightBound());
-		float topDist = std::abs (player->getBottomBound() - obstacle->getTopBound());
-		float leftDist = std::abs (player->getRightBound() - obstacle->getLeftBound());
-		float bottomDist = std::abs (player->getTopBound() - obstacle->getBottomBound());
+	for (Obstacle* obstacle : obstacles) {
+		if (player->getBottomBound() <= obstacle->getTopBound()
+			&& player->getTopBound() >= obstacle->getBottomBound()
+			&& player->getLeftBound() <= obstacle->getRightBound()
+			&& player->getRightBound() >= obstacle->getLeftBound()) {
+			float rightDist = std::abs(player->getLeftBound() - obstacle->getRightBound());
+			float topDist = std::abs(player->getBottomBound() - obstacle->getTopBound());
+			float leftDist = std::abs(player->getRightBound() - obstacle->getLeftBound());
+			float bottomDist = std::abs(player->getTopBound() - obstacle->getBottomBound());
 
-		if (rightDist < topDist && rightDist < leftDist && rightDist < bottomDist) {
-			player->setXPosition(obstacle->getRightBound() + player->getWidth());
-			player->setXAccel(0.0f);
-		} else if (topDist < rightDist && topDist < leftDist && topDist < bottomDist) {
-			player->setHasJumped(false);
-			player->setHasDoubleJumped(false);
+			if (rightDist < topDist && rightDist < leftDist && rightDist < bottomDist) {
+				player->setXPosition(obstacle->getRightBound() + player->getWidth());
+				player->setXAccel(0.0f);
+			}
+			else if (topDist < rightDist && topDist < leftDist && topDist < bottomDist) {
+				player->setHasJumped(false);
+				player->setHasDoubleJumped(false);
 
-			player->setYPosition(obstacle->getTopBound() + player->getHeight());
-			player->setYAccel(0.0f);
-		} else if (leftDist < topDist && leftDist < rightDist && leftDist < bottomDist) {
-			player->setXPosition(obstacle->getLeftBound() - player->getWidth());
-			player->setXAccel(0.0f);
-		} else if (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist) {
-			player->setYPosition(obstacle->getBottomBound() - player->getHeight());
-			player->setYAccel(0.0f);
+				player->setYPosition(obstacle->getTopBound() + player->getHeight());
+				player->setYAccel(0.0f);
+			}
+			else if (leftDist < topDist && leftDist < rightDist && leftDist < bottomDist) {
+				player->setXPosition(obstacle->getLeftBound() - player->getWidth());
+				player->setXAccel(0.0f);
+			}
+			else if (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist) {
+				player->setYPosition(obstacle->getBottomBound() - player->getHeight());
+				player->setYAccel(0.0f);
+			}
 		}
-	}
 
-	obstacle->update();
-	obstacle->render();
+		obstacle->update();
+		obstacle->render();
+	}
 
 	shader.unuse();
 }
@@ -79,6 +89,7 @@ void PlayState::handleInput() {
 		player->setIsCrouching(true);
 	} else {
 		player->setTexture(player->getIsFacingRight() ? player->idleRight : player->idleLeft);
+		player->setIsCrouching(false);
 
 		if (Keys::isPressed(Keys::ESC)) {
 			stateManager->loadState(StateManager::PAUSED);

@@ -42,8 +42,6 @@ bool Player::getHasDoubleJumped() {
 
 void Player::setIsCrouching(bool c) {
 	isCrouching = c;
-
-	setTexture(isFacingRight ? slideRight : slideLeft);
 }
 
 bool Player::getIsCrouching() {
@@ -53,8 +51,10 @@ bool Player::getIsCrouching() {
 void Player::update() {
 	if (yAccel > 0.0f) {
 		setTexture(isFacingRight ? jumpRight : jumpLeft);
+		hasJumped = true;
 	} else if (yAccel < 0.0f) {
 		setTexture(isFacingRight ? fallRight : fallLeft);
+		hasJumped = true;
 	}
 
 	if (xAccel >= playerAcccel) {
@@ -66,9 +66,15 @@ void Player::update() {
 	}
 
 	if (isCrouching) {
-		height = height + width;
-		width = height - width;
-		height = height - width;
+		setTexture(isFacingRight ? slideRight : slideLeft);
+
+		if (!wasCrouching) {
+			height = height + width;
+			width = height - width;
+			height = height - width;
+
+			wasCrouching = true;
+		}
 	}
 
 	objSprite.setY(y += yAccel -= gravity);
@@ -87,12 +93,12 @@ void Player::update() {
 	objSprite.update();
 	objSprite.setW(width);
 
-	if (isCrouching) {
+	if (wasCrouching && !isCrouching) {
 		height = height + width;
 		width = height - width;
 		height = height - width;
 
-		setIsCrouching(false);
+		wasCrouching = false;
 	}
 }
 
@@ -111,4 +117,12 @@ bool Player::getIsFacingRight() {
 
 void Player::setIsFacingRight(bool isRight) {
 	isFacingRight = isRight;
+}
+
+bool Player::getWasCrouching() {
+	return wasCrouching;
+}
+
+void Player::setWasCrouching(bool crouching) {
+	wasCrouching = crouching;
 }
