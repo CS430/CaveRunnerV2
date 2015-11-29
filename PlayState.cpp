@@ -12,7 +12,8 @@ PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	obstacles = { 
 		new Obstacle(-0.5f, -0.6f, 0.05f, 0.1f, obstacleTexFilePath),
 		new Obstacle(-0.75f, -0.1f, 0.05f, 0.1f, obstacleTexFilePath),
-		new Obstacle(0.5f, 0.4f, 0.05f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.55f, 0.4f, 0.1f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.5f, 0.75f, 0.05f, 0.1f, obstacleTexFilePath),
 		new Obstacle(0.0f, -1.0f, 0.05f, 0.1f, obstacleTexFilePath)
 	};
 
@@ -59,22 +60,19 @@ void PlayState::render() {
 
 			if (rightDist < topDist && rightDist < leftDist && rightDist < bottomDist) {
 				player->setXPosition(obstacle->getRightBound() + player->getWidth());
-				player->setXAccel(0.0f);
-			}
-			else if (topDist < rightDist && topDist < leftDist && topDist < bottomDist) {
+				player->setXAccel(player->getXAccel() < 0 ? 0.0f : player->getXAccel());
+			} else if (topDist < rightDist && topDist < leftDist && topDist < bottomDist) {
 				player->setHasJumped(false);
 				player->setHasDoubleJumped(false);
 
 				player->setYPosition(obstacle->getTopBound() + player->getHeight());
-				player->setYAccel(0.0f);
-			}
-			else if (leftDist < topDist && leftDist < rightDist && leftDist < bottomDist) {
+				player->setYAccel(player->getYAccel() < 0 ? 0.0f : player->getYAccel());
+			} else if (leftDist < topDist && leftDist < rightDist && leftDist < bottomDist) {
 				player->setXPosition(obstacle->getLeftBound() - player->getWidth());
-				player->setXAccel(0.0f);
-			}
-			else if (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist) {
+				player->setXAccel(player->getXAccel() > 0 ? 0.0f : player->getXAccel());
+			} else if (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist) {
 				player->setYPosition(obstacle->getBottomBound() - player->getHeight());
-				player->setYAccel(0.0f);
+				player->setYAccel(player->getYAccel() > 0 ? 0.0f : player->getYAccel());
 			}
 		}
 
