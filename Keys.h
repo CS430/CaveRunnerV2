@@ -34,7 +34,7 @@ public:
 	static bool isPressed(int x);
 	static bool isDown(int x);
 
-	static const int NUMBER_OF_KEYS = 7;
+	static const int NUMBER_OF_KEYS = 8;
 
 	static const int ENTER = 0;
 	static const int ESC = 1;
@@ -43,6 +43,7 @@ public:
 	static const int A = 4;
 	static const int S = 5;
 	static const int D = 6;
+	static const int P = 7;
 };
 
 #endif

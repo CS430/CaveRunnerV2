@@ -10,20 +10,35 @@
 using namespace glm;
 
 std::vector<Obstacle*> obstacles;
+std::vector<Obstacle*> lvl1Obstacles;
+std::vector<Obstacle*> lvl2Obstacles;
 
 GLint playTextureLocation;
 GLint matrixId;
 
+glm::mat4 Projection;
+glm::mat4 Model;
+
 PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
-	obstacles = { 
-		new Obstacle(-0.5f, -0.6f, 0.05f, 0.1f, obstacleTexFilePath),
-		new Obstacle(-0.75f, -0.1f, 0.05f, 0.1f, obstacleTexFilePath),
-		new Obstacle(0.55f, 0.4f, 0.1f, 0.1f, obstacleTexFilePath),
-		new Obstacle(0.5f, 0.75f, 0.05f, 0.1f, obstacleTexFilePath),
+	lvl1Obstacles = {
+		new Obstacle(-0.65f, -0.7f, 0.2f, 0.2f, obstacleTexFilePath),
+		new Obstacle(-0.75f, -0.5f, 0.075f, 0.5f, obstacleTexFilePath),
+		new Obstacle(0.75f, 0.4f, 0.1f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.7f, 0.75f, 0.05f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-0.40f, -1.0f, 0.45f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-0.85f, -0.0f, 0.05f, 1.1f, obstacleTexFilePath),
+		new Obstacle(4.0f, -1.0f, 0.025f, 0.5f, obstacleTexFilePath),
+		new Obstacle(4.25f, -1.0f, 0.025f, 0.95f, obstacleTexFilePath),
+		new Obstacle(4.5f, -1.0f, 0.025f, 1.4f, obstacleTexFilePath)
+	};
+
+	lvl2Obstacles = {
 		new Obstacle(0.0f, -1.0f, 0.05f, 0.1f, obstacleTexFilePath)
 	};
+
+	obstacles = lvl1Obstacles;
 
 	player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
 }
@@ -41,6 +56,12 @@ void PlayState::init() {
 
 	playTextureLocation = shader.getUniformLocation("mySampler");
 	matrixId = shader.getUniformLocation("MVP");
+
+	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
+	Projection = glm::perspective(3.0f, 1.0f, 0.1f, 1.0f);
+
+	// Model matrix : an identity matrix (model will be at the origin)
+	Model = glm::mat4(1.0f) * glm::mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.25f);
 }
 
 void PlayState::update() {
@@ -48,18 +69,12 @@ void PlayState::update() {
 }
 
 void PlayState::render() {
-	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	glm::mat4 Projection = glm::perspective(3.0f, 4.0f / 3.0f, 0.1f, 1.0f);
-
 	// Camera matrix
 	glm::mat4 View = glm::lookAt(
 		glm::vec3(player->getXPosition() * 4.0f, 0, 0.3f), // Camera is at (4,3,-3), in World Space
 		glm::vec3(player->getXPosition() * 4.0f, 0.0f, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 		);
-
-	// Model matrix : an identity matrix (model will be at the origin)
-	glm::mat4 Model = glm::mat4(1.0f) * glm::mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.25f);
 
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
@@ -114,6 +129,13 @@ void handleCollisions() {
 }
 
 void PlayState::handleInput() {
+	if (Keys::isDown(Keys::P)) {
+		if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
+			obstacles = lvl2Obstacles;
+			player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
+		}
+	}
+
 	if (!player->getIsDead()) {
 		if (Keys::isDown(Keys::S)) {
 			player->setIsCrouching(true);
