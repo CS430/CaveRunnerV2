@@ -11,7 +11,6 @@ GLSLProgram::~GLSLProgram() {
 
 }
 
-
 void GLSLProgram::compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
 	//Vertex and fragment shaders are successfully compiled.
 	//Now time to link them together into a program.
@@ -79,12 +78,6 @@ void GLSLProgram::linkShaders() {
 	glDeleteShader(fragShaderID);
 }
 
-/*
-void GLSLProgram::addAttribute(const std::string& attributeName) {
-	glBindAttribLocation(programID, numAttribute, attributeName.c_str());
-	numAttribute++;
-}
-*/
 void GLSLProgram::addAttribute(const std::string& attributeName) {
 	glBindAttribLocation(programID, numAttribute, attributeName.c_str());
 	numAttribute++;
@@ -95,6 +88,7 @@ GLuint GLSLProgram::getUniformLocation(const std::string& uniformName) {
 	 
 	if (location == GL_INVALID_INDEX) {
 		fprintf(stderr, "Error: Uniform: %s ; not found in shader.", uniformName.c_str());
+
 		return NULL;
 	} else {
 		return location;
@@ -103,8 +97,8 @@ GLuint GLSLProgram::getUniformLocation(const std::string& uniformName) {
 
 void GLSLProgram::use() {
 	glUseProgram(programID);
-	for (int i = 0; i < numAttribute; i++)
-	{
+
+	for (int i = 0; i < numAttribute; i++) {
 		glEnableVertexAttribArray(i);
 	}
 }

@@ -5,6 +5,9 @@
 #include "ImageLoader.h"
 #include "Keys.h"
 
+GLint menuTextureLocation;
+GLint selectedLocation;
+
 MainMenuState::MainMenuState(StateManager* sm) : stateManager(sm), labels(2), index(0) { //, playLb(-.2f, -.2f, playTextureFilePath), quitLb(-.2f, -.4f, quitTextureFilePath){ 
 	labels[0] = new Label(-0.2f, -0.2f, 0.3, 0.1, playTextureFilePath);
 	labels[1] = new Label(-0.2f, -0.4f, 0.3, 0.1, quitTextureFilePath);
@@ -21,6 +24,9 @@ void MainMenuState::init() {
 	shader.addAttribute("vertexUV");
 	shader.linkShaders();
 
+	menuTextureLocation = shader.getUniformLocation("mySampler");
+	selectedLocation = shader.getUniformLocation("selected");
+
 	labels[0]->setSelected(1);
 
 	glClearColor(0.0, 0.0, 0.0, 1.0f);
@@ -33,10 +39,7 @@ void MainMenuState::update() {
 void MainMenuState::render() {
 	shader.use();
 
-	GLint textureLocation = shader.getUniformLocation("mySampler");
-	glUniform1i(textureLocation, 0);
-
-	GLint selectedLocation = shader.getUniformLocation("selected");
+	glUniform1i(menuTextureLocation, 0);
 	glUniform1i(selectedLocation, labels[0]->isSelected());
 
 	//sprite.render();

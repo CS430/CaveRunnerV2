@@ -6,16 +6,8 @@ in vec2 fragmentUV;
 
 out vec4 color;
 
-uniform int selected;
-uniform float time;
 uniform sampler2D mySampler;
 
 void main() {
-	vec4 textureColor = texture(mySampler, fragmentUV);
-
-	if(selected == 1) {
-		color = textureColor + vec3(0.0, 0.2, 0.5);
-	} else {
-		color = textureColor;
-	}	
+	color = texture(mySampler, fragmentUV);
 }
