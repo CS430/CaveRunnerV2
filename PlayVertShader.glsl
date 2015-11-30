@@ -8,8 +8,10 @@ out vec4 fragmentColor;
 out vec2 fragmentPosition;
 out vec2 fragmentUV;
 
-void main() {
-	gl_Position.xy = vertexPosition;
+uniform mat4 MVP;
+
+void main() {	
+	gl_Position.xyzw = MVP * vec4(vertexPosition, 0.0, 1.0f);
 
 	fragmentPosition = vertexPosition;
 	fragmentColor = vertexColor;
