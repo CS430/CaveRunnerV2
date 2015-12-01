@@ -9,8 +9,8 @@ GLint menuTextureLocation;
 GLint selectedLocation;
 
 MainMenuState::MainMenuState(StateManager* sm) : stateManager(sm), labels(2), index(0) { //, playLb(-.2f, -.2f, playTextureFilePath), quitLb(-.2f, -.4f, quitTextureFilePath){ 
-	labels[0] = new Label(-0.2f, -0.2f, 0.3, 0.1, playTextureFilePath);
-	labels[1] = new Label(-0.2f, -0.4f, 0.3, 0.1, quitTextureFilePath);
+	labels[0] = new Label(0.0f, 0.f, 0.15, 0.05, playTextureFilePath);
+	labels[1] = new Label(0.0f, -0.2f, 0.15, 0.05, quitTextureFilePath);
 }
 
 MainMenuState::~MainMenuState() {

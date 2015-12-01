@@ -6,7 +6,7 @@
 GLint textureLocation;
 GLint alphaValue;
 
-IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(200), background(-1.0, -1.0, 2.0, 2.0, backgroundFilePath) {
+IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(200), background(0.0, 0.0, 1.0, 1.0, backgroundFilePath) {
 	
 }
 
@@ -40,9 +40,7 @@ void IntroState::update() {
 		tick++;
 	} else if (tick >= target) {
 		 stateManager->loadState(StateManager::MAINMENU);
-	} else {
-		fprintf(stderr, "Error: update method - IntorState");
-	}
+	} 
 }
 
 void IntroState::render() {

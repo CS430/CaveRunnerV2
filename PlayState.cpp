@@ -1,6 +1,5 @@
 #include "PlayState.h"
 #include "Keys.h"
-#include "Obstacle.h"
 
 #include <cmath>
 
@@ -9,9 +8,15 @@
 
 using namespace glm;
 
-std::vector<Obstacle*> obstacles;
 std::vector<Obstacle*> lvl1Obstacles;
 std::vector<Obstacle*> lvl2Obstacles;
+std::vector<Obstacle*> lvl3Obstacles;
+
+Exit *lvl1Exit;
+Exit *lvl2Exit;
+Exit *lvl3Exit;
+
+int currentStage;
 
 GLint playTextureLocation;
 GLint matrixId;
@@ -19,30 +24,45 @@ GLint matrixId;
 glm::mat4 Projection;
 glm::mat4 Model;
 
-PlayState::PlayState(StateManager* sm) : stateManager(sm) {
+PlayState::PlayState(StateManager *sm) : stateManager(sm) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
 	lvl1Obstacles = {
-		new Obstacle(-0.65f, -0.7f, 0.2f, 0.2f, obstacleTexFilePath),
-		new Obstacle(-0.75f, -0.5f, 0.075f, 0.5f, obstacleTexFilePath),
-		new Obstacle(0.75f, 0.4f, 0.1f, 0.1f, obstacleTexFilePath),
-		new Obstacle(0.7f, 0.75f, 0.05f, 0.1f, obstacleTexFilePath),
-		new Obstacle(-0.40f, -1.0f, 0.45f, 0.1f, obstacleTexFilePath),
-		new Obstacle(-0.85f, -0.0f, 0.05f, 1.1f, obstacleTexFilePath),
-		new Obstacle(4.0f, -1.0f, 0.025f, 0.5f, obstacleTexFilePath),
-		new Obstacle(4.25f, -1.0f, 0.025f, 0.95f, obstacleTexFilePath),
-		new Obstacle(4.5f, -1.0f, 0.025f, 1.4f, obstacleTexFilePath)
+		new Obstacle(0.25f, -1.0f, 0.4f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.4f, -0.8f, 0.05f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.5f, -0.7f, 0.05f, 0.2f, obstacleTexFilePath),
+		new Obstacle(0.6f, -0.5f, 0.05f, 0.4f, obstacleTexFilePath),
+		new Obstacle(2.35f, -1.0f, 0.8f, 0.1f, obstacleTexFilePath),
 	};
 
 	lvl2Obstacles = {
-		new Obstacle(0.0f, -1.0f, 0.05f, 0.1f, obstacleTexFilePath)
+		new Obstacle(0.0f, -1.0f, 1.0f, 0.1f, obstacleTexFilePath)
+	};
+
+	lvl3Obstacles = {
+		new Obstacle(-0.1f, 1.0f, 0.8f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-0.65f, -0.7f, 0.2f, 0.2f, obstacleTexFilePath),
+		new Obstacle(-0.75f, -0.5f, 0.075f, 0.5f, obstacleTexFilePath),
+		new Obstacle(0.75f, 0.4f, 0.1f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.7f, 0.9f, 0.05f, 0.25f, obstacleTexFilePath),
+		new Obstacle(-0.40f, -1.0f, 0.45f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-1.85f, -0.0f, 1.05f, 1.1f, obstacleTexFilePath),
+		new Obstacle(4.0f, -1.0f, 0.025f, 0.5f, obstacleTexFilePath),
+		new Obstacle(4.25f, -1.0f, 0.025f, 0.95f, obstacleTexFilePath),
+		new Obstacle(4.5f, -1.0f, 0.025f, 1.4f, obstacleTexFilePath)
 	};
 
 	obstacles = lvl1Obstacles;
 
 	player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
 
-	exit = new Exit(4.465f, 0.4f, 0.075f, 0.15f, exitTexFilePath);
+	lvl1Exit = new Exit(3.0f, -0.825f, 0.0375f, 0.075f, exitTexFilePath);
+	lvl2Exit = new Exit(0.5f, -0.825f, 0.0375f, 0.075f, exitTexFilePath);
+	lvl3Exit = new Exit(4.5f, 0.475f, 0.0375f, 0.075f, exitTexFilePath);
+
+	exit = lvl1Exit;
+
+	currentStage = 1;
 }
 
 PlayState::~PlayState() {
@@ -93,7 +113,7 @@ void PlayState::render() {
 	player->update();
 	player->render();
 
-	for (Obstacle* obstacle : obstacles) {
+	for (Obstacle *obstacle : obstacles) {
 		if (player->getBottomBound() <= obstacle->getTopBound()
 			&& player->getTopBound() >= obstacle->getBottomBound()
 			&& player->getLeftBound() <= obstacle->getRightBound()
@@ -125,23 +145,49 @@ void PlayState::render() {
 		obstacle->render();
 	}
 
-	if (player->getBottomBound() <= exit->getTopBound()
-		&& player->getTopBound() >= exit->getBottomBound()
-		&& player->getLeftBound() <= exit->getRightBound()
-		&& player->getRightBound() >= exit->getLeftBound()) {
-		obstacles = lvl2Obstacles;
-		player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
+	if (player->getBottomBound() < exit->getTopBound()
+		&& player->getTopBound() > exit->getBottomBound()
+		&& player->getLeftBound() < exit->getXPosition()
+		&& player->getRightBound() > exit->getXPosition()) {
+
+		if (currentStage == 1) {
+			obstacles = lvl2Obstacles;
+			exit = lvl2Exit;
+		} else if (currentStage == 2) {
+			obstacles = lvl3Obstacles;
+			exit = lvl3Exit;
+		}
+
+		player->setXPosition(0.0f);
+		player->setYPosition(0.0f);
+		player->setXAccel(0.0f);
+		player->setYAccel(0.0f);
+
+		currentStage++;
 	}
 
 	shader.unuse();
 }
 
 void PlayState::handleInput() {
-	if (Keys::isDown(Keys::P)) {
-		if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
-			obstacles = lvl2Obstacles;
-			player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
-		}
+	if (Keys::isDown(Keys::ONE)) {
+		obstacles = lvl1Obstacles;
+		exit = lvl1Exit;
+		currentStage = 1;
+
+		player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
+	} else if (Keys::isDown(Keys::TWO)) {
+		obstacles = lvl2Obstacles;
+		exit = lvl2Exit;
+		currentStage = 2;
+
+		player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
+	} else if (Keys::isDown(Keys::THREE)) {
+		obstacles = lvl3Obstacles;
+		exit = lvl3Exit;
+		currentStage = 3;
+
+		player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
 	}
 
 	if (!player->getIsDead()) {
@@ -158,17 +204,19 @@ void PlayState::handleInput() {
 			if (Keys::isDown(Keys::D)) {
 				if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
 					player->setXAccel(player->getXAccel() + player->playerAcccel);
-					player->setTexture(player->runRight);
-					player->setIsFacingRight(true);
 				}
+
+				player->setTexture(player->runRight);
+				player->setIsFacingRight(true);
 			}
 
 			if (Keys::isDown(Keys::A)) {
 				if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
 					player->setXAccel(player->getXAccel() - player->playerAcccel);
-					player->setTexture(player->runLeft);
-					player->setIsFacingRight(false);
 				}
+
+				player->setTexture(player->runLeft);
+				player->setIsFacingRight(false);
 			}
 
 			if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {

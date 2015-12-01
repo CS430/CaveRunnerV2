@@ -2,6 +2,11 @@
 
 Background::Background(float startX, float startY, float startW, float startH, std::string filePathToTexture) : Entity(startX, startY, startH, startW, filePathToTexture) {
 	objSprite.init();
+
+	objSprite.setX(startX);
+	objSprite.setY(startY);
+	objSprite.setW(startW);
+	objSprite.setH(startH);
 }
 
 Background::~Background() {

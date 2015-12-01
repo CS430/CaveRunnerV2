@@ -6,6 +6,7 @@
 #include "Exit.h"
 #include "GLTexture.h"
 #include "GLSLProgram.h"
+#include "Obstacle.h"
 
 class PlayState : public State {
 public:
@@ -18,6 +19,7 @@ public:
 	void handleInput();
 
 private:
+	std::vector<Obstacle*> obstacles;
 	StateManager *stateManager;
 	Player *player;
 	Exit *exit;
