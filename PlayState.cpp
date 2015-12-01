@@ -41,6 +41,8 @@ PlayState::PlayState(StateManager* sm) : stateManager(sm) {
 	obstacles = lvl1Obstacles;
 
 	player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
+
+	exit = new Exit(4.465f, 0.4f, 0.075f, 0.15f, exitTexFilePath);
 }
 
 PlayState::~PlayState() {
@@ -86,6 +88,8 @@ void PlayState::render() {
 	glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 	glUniform1i(playTextureLocation, 0);
 
+	exit->render();
+
 	player->update();
 	player->render();
 
@@ -121,11 +125,15 @@ void PlayState::render() {
 		obstacle->render();
 	}
 
+	if (player->getBottomBound() <= exit->getTopBound()
+		&& player->getTopBound() >= exit->getBottomBound()
+		&& player->getLeftBound() <= exit->getRightBound()
+		&& player->getRightBound() >= exit->getLeftBound()) {
+		obstacles = lvl2Obstacles;
+		player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
+	}
+
 	shader.unuse();
-}
-
-void handleCollisions() {
-
 }
 
 void PlayState::handleInput() {
