@@ -24,29 +24,28 @@ GLint matrixId;
 glm::mat4 Projection;
 glm::mat4 Model;
 
-PlayState::PlayState(StateManager *sm) : stateManager(sm) {
+PlayState::PlayState(StateManager *sm) : stateManager(sm), background(0.0f, 0.0f, 2.0f, 1.1f, backgroundFilePath) {
 	glClearColor(0.153f, 0.051f, 0.0f, 0.0f);
 
 	lvl1Obstacles = {
-		new Obstacle(0.25f, -1.0f, 0.4f, 0.1f, obstacleTexFilePath),
-		new Obstacle(0.4f, -0.8f, 0.05f, 0.1f, obstacleTexFilePath),
-		new Obstacle(0.5f, -0.7f, 0.05f, 0.2f, obstacleTexFilePath),
-		new Obstacle(0.6f, -0.5f, 0.05f, 0.4f, obstacleTexFilePath),
-		new Obstacle(2.35f, -1.0f, 0.8f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-0.6f, -1.0f, 1.5f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.4f, -0.8f, 0.1f, 0.1f, obstacleTexFilePath),
+		new Obstacle(0.6f, -0.7f, 0.1f, 0.2f, obstacleTexFilePath),
+		new Obstacle(0.8f, -0.5f, 0.1f, 0.4f, obstacleTexFilePath),
+		new Obstacle(2.55f, -1.0f, 0.8f, 0.1f, obstacleTexFilePath),
 	};
 
 	lvl2Obstacles = {
-		new Obstacle(0.0f, -1.0f, 1.0f, 0.1f, obstacleTexFilePath)
+		new Obstacle(0.0f, -1.0f, 3.0f, 0.1f, obstacleTexFilePath)
 	};
 
 	lvl3Obstacles = {
-		new Obstacle(-0.1f, 1.0f, 0.8f, 0.1f, obstacleTexFilePath),
 		new Obstacle(-0.65f, -0.7f, 0.2f, 0.2f, obstacleTexFilePath),
-		new Obstacle(-0.75f, -0.5f, 0.075f, 0.5f, obstacleTexFilePath),
-		new Obstacle(0.75f, 0.4f, 0.1f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-0.95f, -0.5f, 0.275f, 0.5f, obstacleTexFilePath),
+		new Obstacle(0.9f, 0.4f, 0.25f, 0.1f, obstacleTexFilePath),
 		new Obstacle(0.7f, 0.9f, 0.05f, 0.25f, obstacleTexFilePath),
-		new Obstacle(-0.40f, -1.0f, 0.45f, 0.1f, obstacleTexFilePath),
-		new Obstacle(-1.85f, -0.0f, 1.05f, 1.1f, obstacleTexFilePath),
+		new Obstacle(-0.60f, -1.0f, 0.65f, 0.1f, obstacleTexFilePath),
+		new Obstacle(-1.85f, -0.0f, 0.75f, 1.1f, obstacleTexFilePath),
 		new Obstacle(4.0f, -1.0f, 0.025f, 0.5f, obstacleTexFilePath),
 		new Obstacle(4.25f, -1.0f, 0.025f, 0.95f, obstacleTexFilePath),
 		new Obstacle(4.5f, -1.0f, 0.025f, 1.4f, obstacleTexFilePath)
@@ -108,6 +107,10 @@ void PlayState::render() {
 	glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 	glUniform1i(playTextureLocation, 0);
 
+	background.setXPosition(player->getXPosition() / 1.05f);
+	background.update();
+	background.render();
+
 	exit->render();
 
 	player->update();
@@ -141,7 +144,6 @@ void PlayState::render() {
 			}
 		}
 
-		obstacle->update();
 		obstacle->render();
 	}
 
@@ -188,6 +190,8 @@ void PlayState::handleInput() {
 		currentStage = 3;
 
 		player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerTexFilePath);
+	} else if (Keys::isPressed(Keys::ESC)) {
+		stateManager->loadState(StateManager::PAUSED);
 	}
 
 	if (!player->getIsDead()) {
@@ -196,37 +200,37 @@ void PlayState::handleInput() {
 		} else {
 			player->setTexture(player->getIsFacingRight() ? player->idleRight : player->idleLeft);
 			player->setIsCrouching(false);
+		}
 
-			if (Keys::isPressed(Keys::ESC)) {
-				stateManager->loadState(StateManager::PAUSED);
+		if (Keys::isDown(Keys::D)) {
+			if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
+				float accel = !player->getHasJumped() ? player->playerAcccel : (player->playerAcccel * player->airResistance);
+					
+				player->setXAccel(player->getXAccel() + accel);
 			}
 
-			if (Keys::isDown(Keys::D)) {
-				if (!player->getIsCrouching() && player->getXAccel() < player->maxPlayerSpeed) {
-					player->setXAccel(player->getXAccel() + player->playerAcccel);
-				}
+			player->setTexture(player->runRight);
+			player->setIsFacingRight(true);
+		}
 
-				player->setTexture(player->runRight);
-				player->setIsFacingRight(true);
+		if (Keys::isDown(Keys::A)) {
+			if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
+				float accel = !player->getHasJumped() ? player->playerAcccel : (player->playerAcccel * player->airResistance);
+
+				player->setXAccel(player->getXAccel() - accel);
 			}
 
-			if (Keys::isDown(Keys::A)) {
-				if (!player->getIsCrouching() && player->getXAccel() > -player->maxPlayerSpeed) {
-					player->setXAccel(player->getXAccel() - player->playerAcccel);
-				}
+			player->setTexture(player->runLeft);
+			player->setIsFacingRight(false);
+		}
 
-				player->setTexture(player->runLeft);
-				player->setIsFacingRight(false);
-			}
-
-			if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {
-				if (!player->getHasJumped()) {
-					player->setYAccel(player->jumpAccel);
-					player->setHasJumped(true);
-				} else if (!player->getHasDoubleJumped()) {
-					player->setYAccel(player->jumpAccel);
-					player->setHasDoubleJumped(true);
-				}
+		if (Keys::isPressed(Keys::W) && !player->getIsCrouching()) {
+			if (!player->getHasJumped()) {
+				player->setYAccel(player->jumpAccel);
+				player->setHasJumped(true);
+			} else if (!player->getHasDoubleJumped()) {
+				player->setYAccel(player->jumpAccel);
+				player->setHasDoubleJumped(true);
 			}
 		}
 	} else {

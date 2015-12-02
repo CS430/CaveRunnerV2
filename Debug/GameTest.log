@@ -1,4 +1,4 @@
-﻿Build started 12/1/2015 12:17:50.
+﻿Build started 12/1/2015 20:51:36.
      1>Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp Exit.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp Obstacle.cpp PauseState.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
@@ -64,4 +64,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:08.09
+Time Elapsed 00:00:08.39

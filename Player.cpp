@@ -57,10 +57,10 @@ void Player::update() {
 		hasJumped = true;
 	}
 
-	if (xAccel >= playerAcccel) {
-		xAccel -= friction;
-	} else if (xAccel <= -playerAcccel) {
-		xAccel += friction;
+	if (xAccel >= playerAcccel / 10.0f) {
+		xAccel -= !hasJumped ? friction : friction * airResistance;
+	} else if (xAccel <= -playerAcccel / 10.0f) {
+		xAccel += !hasJumped ? friction : friction * airResistance;
 	} else {
 		xAccel = 0.0f;
 	}

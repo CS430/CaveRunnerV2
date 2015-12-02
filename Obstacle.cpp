@@ -14,7 +14,7 @@ Obstacle::~Obstacle() {
 }
 
 void Obstacle::update() {
-	objSprite.update();
+
 }
 
 void Obstacle::render() {

@@ -11,10 +11,11 @@ public:
 	~Player();
 
 	const float gravity = 0.00075f;
-	const float friction = 0.0004f;
-	const float playerAcccel = 0.0008f;
-	const float maxPlayerSpeed = 0.025f;
+	const float friction = 0.0005f;
+	const float playerAcccel = 0.00085f;
+	const float maxPlayerSpeed = 0.020f;
 	const float jumpAccel = 0.02f;
+	const float airResistance = 0.45f;
 
 	void update();
 	void render();

@@ -14,7 +14,8 @@ Background::~Background() {
 }
 
 void Background::update() {
-
+	objSprite.setX(x);
+	objSprite.update();
 }
 
 void Background::render() {
