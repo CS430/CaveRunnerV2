@@ -134,10 +134,19 @@ void PlayState::render() {
 			if (rightDist < topDist && rightDist < leftDist && rightDist < bottomDist) {
 				player->setXPosition(obstacle->getRightBound() + player->getWidth());
 				player->setXAccel(player->getXAccel() < 0 ? 0.0f : player->getXAccel());
+
+				player->setHasJumped(false);
+				player->setHasDoubleJumped(false);
+
+				player->setIsWallSlidingRight(false);
+				player->setIsWallSlidingLeft(player->getYAccel() != 0);
 			}
 			else if (topDist < rightDist && topDist < leftDist && topDist < bottomDist) {
 				player->setHasJumped(false);
 				player->setHasDoubleJumped(false);
+
+				player->setIsWallSlidingLeft(false);
+				player->setIsWallSlidingRight(false);
 
 				player->setYPosition(obstacle->getTopBound() + player->getHeight());
 				player->setYAccel(player->getYAccel() < 0 ? 0.0f : player->getYAccel());
@@ -145,10 +154,20 @@ void PlayState::render() {
 			else if (leftDist < topDist && leftDist < rightDist && leftDist < bottomDist) {
 				player->setXPosition(obstacle->getLeftBound() - player->getWidth());
 				player->setXAccel(player->getXAccel() > 0 ? 0.0f : player->getXAccel());
+
+				player->setHasJumped(false);
+				player->setHasDoubleJumped(false);
+
+				player->setIsWallSlidingLeft(false);
+				player->setIsWallSlidingRight(player->getYAccel() != 0);
 			}
 			else if (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist) {
 				player->setYPosition(obstacle->getBottomBound() - player->getHeight());
 				player->setYAccel(player->getYAccel() > 0 ? 0.0f : player->getYAccel());
+
+				player->setHasJumped(false);
+				player->setIsWallSlidingLeft(false);
+				player->setIsWallSlidingRight(false);
 			}
 		}
 
@@ -215,7 +234,9 @@ void PlayState::handleInput() {
 		}
 
 		if (Keys::isDown(Keys::A)) {
-			player->goLeft();
+			if (!player->getIsWallSlidingLeft() && !player->getIsWallSlidingRight()) {
+				player->goLeft();
+			}
 		}
 		else {
 			if (player->getXAccel() < -player->maxPlayerSpeed / 2) {
@@ -224,7 +245,9 @@ void PlayState::handleInput() {
 		}
 
 		if (Keys::isDown(Keys::D)) {
-			player->goRight();
+			if (!player->getIsWallSlidingLeft() && !player->getIsWallSlidingRight()) {
+				player->goRight();
+			}
 		}
 		else {
 			if (player->getXAccel() > player->maxPlayerSpeed / 2) {

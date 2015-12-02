@@ -39,6 +39,12 @@ public:
 	bool getIsFacingRight();
 	void setIsFacingRight(bool r);
 
+	bool getIsWallSlidingLeft();
+	void setIsWallSlidingLeft(bool r);
+
+	bool getIsWallSlidingRight();
+	void setIsWallSlidingRight(bool r);
+
 	bool getIsDead();
 	void setIsDead(bool d);
 
@@ -54,6 +60,8 @@ public:
 	GLTexture fallLeft;
 	GLTexture standingSlideRight;
 	GLTexture standingSlideLeft;
+	GLTexture wallSlidingLeft;
+	GLTexture wallSlidingRight;
 	
 private:
 	bool isCrouching;
@@ -62,6 +70,8 @@ private:
 	bool hasDoubleJumped;
 	bool isFacingRight;
 	bool isDead;
+	bool isWallSlidingLeft;
+	bool isWallSlidingRight;
 
 	void switchHeightAndWidth();
 };

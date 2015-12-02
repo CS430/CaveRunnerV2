@@ -20,6 +20,8 @@ Player::Player(float xPos, float yPos, float startW, float startH, GLTexture tex
 	fallLeft = ImageLoader::loadPNG("Resources/Images/player_fall_1_left.png");
 	standingSlideRight = ImageLoader::loadPNG("Resources/Images/player_standing_slide_right.png");
 	standingSlideLeft = ImageLoader::loadPNG("Resources/Images/player_standing_slide_left.png");
+	wallSlidingRight = ImageLoader::loadPNG("Resources/Images/player_wall_slide_right.png");
+	wallSlidingLeft = ImageLoader::loadPNG("Resources/Images/player_wall_slide_left.png");
 }
 
 Player::~Player() {
@@ -29,7 +31,18 @@ Player::~Player() {
 void Player::jump() {
 	if (!isCrouching) {
 		if (!hasJumped) {
-			yAccel = jumpAccel;
+			if (isWallSlidingLeft && !isWallSlidingRight) {
+				yAccel = jumpAccel * 0.9f;
+				xAccel = jumpAccel * 0.5;
+			}
+			else if (isWallSlidingRight && !isWallSlidingLeft) {
+				yAccel = jumpAccel * 0.9f;
+				xAccel = -jumpAccel * 0.5f;
+			}
+			else {
+				yAccel = jumpAccel;
+			}
+
 			hasJumped = true;
 		}
 		else if (!hasDoubleJumped) {
@@ -65,6 +78,22 @@ void Player::goRight() {
 	}
 }
 
+void Player::setIsWallSlidingLeft(bool sliding) {
+	isWallSlidingLeft = sliding;
+}
+
+bool Player::getIsWallSlidingLeft() {
+	return isWallSlidingLeft;
+}
+
+void Player::setIsWallSlidingRight(bool sliding) {
+	isWallSlidingRight = sliding;
+}
+
+bool Player::getIsWallSlidingRight() {
+	return isWallSlidingRight;
+}
+
 void Player::setHasJumped(bool j) {
 	hasJumped = j;
 }
@@ -90,13 +119,21 @@ bool Player::getIsCrouching() {
 }
 
 void Player::update() {
-	if (yAccel > 0.0f) {
-		setTexture(isFacingRight ? jumpRight : jumpLeft);
-		hasJumped = true;
+	if (!isWallSlidingLeft && !isWallSlidingRight) {
+		if (yAccel > 0.0f) {
+			setTexture(isFacingRight ? jumpRight : jumpLeft);
+			hasJumped = true;
+		}
+		else if (yAccel < 0.0f) {
+			setTexture(isFacingRight ? fallRight : fallLeft);
+			hasJumped = true;
+		}
 	}
-	else if (yAccel < 0.0f) {
-		setTexture(isFacingRight ? fallRight : fallLeft);
-		hasJumped = true;
+	else if (isWallSlidingLeft) {
+		setTexture(wallSlidingLeft);
+	}
+	else if (isWallSlidingRight) {
+		setTexture(wallSlidingRight);
 	}
 
 	if (xAccel >= playerAcccel * airResistance) {
@@ -136,6 +173,9 @@ void Player::update() {
 
 		wasCrouching = false;
 	}
+
+	isWallSlidingLeft = false;
+	isWallSlidingRight = false;
 }
 
 void Player::switchHeightAndWidth() {
