@@ -1,8 +1,7 @@
 #include "Entity.h"
 #include "ImageLoader.h"
 
-Entity::Entity(float startX, float startY, float startW, float startH, std::string filePathToTexture) : x(startX), y(startY), width(startW), height(startH), textureFilePath(filePathToTexture), objSprite(x, y, width, height) {
-	objTexture = ImageLoader::loadPNG(textureFilePath);
+Entity::Entity(float startX, float startY, float startW, float startH, GLTexture texture) : x(startX), y(startY), width(startW), height(startH), objTexture(texture), objSprite(x, y, width, height) {
 	xAccel = 0.0f;
 	yAccel = 0.0f;
 }

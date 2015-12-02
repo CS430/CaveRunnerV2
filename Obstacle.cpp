@@ -1,6 +1,6 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(float xPos, float yPos, float width, float height, std::string texturePath) : Entity(xPos, yPos, width, height, texturePath) {
+Obstacle::Obstacle(float xPos, float yPos, float width, float height, GLTexture texture) : Entity(xPos, yPos, width, height, texture) {
 	objSprite.init();
 
 	objSprite.setX(xPos);

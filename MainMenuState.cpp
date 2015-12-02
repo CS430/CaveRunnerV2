@@ -9,8 +9,8 @@ GLint menuTextureLocation;
 GLint selectedLocation;
 
 MainMenuState::MainMenuState(StateManager* sm) : stateManager(sm), labels(2), index(0) { //, playLb(-.2f, -.2f, playTextureFilePath), quitLb(-.2f, -.4f, quitTextureFilePath){ 
-	labels[0] = new Label(0.0f, 0.f, 0.15, 0.05, playTextureFilePath);
-	labels[1] = new Label(0.0f, -0.2f, 0.15, 0.05, quitTextureFilePath);
+	labels[0] = new Label(0.0f, 0.25f, 0.25, 0.15, playTex);
+	labels[1] = new Label(0.0f, -0.25f, 0.25, 0.15, quitTex);
 }
 
 MainMenuState::~MainMenuState() {
@@ -57,22 +57,25 @@ void MainMenuState::handleInput() {
 			labels[0]->setSelected(1);
 			labels[1]->setSelected(0);
 		}
-	} else if (Keys::isPressed(Keys::S)) {
+	}
+	else if (Keys::isPressed(Keys::S)) {
 		if (index < maxIndex) {
 			index++;
 
 			labels[1]->setSelected(1);
 			labels[0]->setSelected(0);
 		}
-	} else if (Keys::isPressed(Keys::ENTER)) {
+	}
+	else if (Keys::isPressed(Keys::ENTER)) {
 		if (index == 0) {
 			stateManager->loadState(StateManager::PLAY);
 		}
-		
+
 		if (index == 1) {
 			glfwTerminate();
 		}
-	} else if (Keys::isPressed(Keys::ESC)) {
+	}
+	else if (Keys::isPressed(Keys::ESC)) {
 		glfwTerminate();
 	}
 }

@@ -8,13 +8,11 @@
 
 class Entity {
 public:
-	Entity(float startX, float startY, float startW, float startH, std::string filePathToTexture);
+	Entity(float startX, float startY, float startW, float startH, GLTexture texture);
 	~Entity();
 
 	virtual void update() =  0;
 	virtual void render() = 0;
-
-	//virtual bool checkValidMove();
 
 	virtual void setPosition(float newX, float newY);
 
@@ -60,7 +58,6 @@ protected:
 
 	Sprite objSprite;
 	GLTexture objTexture;
-	std::string textureFilePath;
 };
 
 #endif

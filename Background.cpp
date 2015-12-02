@@ -1,6 +1,6 @@
 #include "Background.h"
 
-Background::Background(float startX, float startY, float startW, float startH, std::string filePathToTexture) : Entity(startX, startY, startH, startW, filePathToTexture) {
+Background::Background(float startX, float startY, float startW, float startH, GLTexture texture) : Entity(startX, startY, startH, startW, texture) {
 	objSprite.init();
 
 	objSprite.setX(startX);

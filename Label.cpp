@@ -1,6 +1,6 @@
 #include "Label.h"
 
-Label::Label(float startX, float startY, float startW, float startH, std::string filePathToTexture) : Entity(startX, startY, startW, startH, filePathToTexture), selected(0) {
+Label::Label(float startX, float startY, float startW, float startH, GLTexture texture) : Entity(startX, startY, startW, startH, texture), selected(0) {
 	objSprite.init();
 }
 

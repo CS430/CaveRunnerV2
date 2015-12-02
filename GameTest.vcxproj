@@ -85,7 +85,6 @@
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Obstacle.cpp" />
-    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="picoPNG.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -106,7 +105,6 @@
     <ClInclude Include="Label.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Obstacle.h" />
-    <ClInclude Include="PauseState.h" />
     <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />

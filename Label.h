@@ -7,7 +7,7 @@
 class Label : public Entity {
 public:
 	//float startX, float startY, float startW, float startH, std::string filePathToTexture
-	Label(float startX, float startY, float startW, float startH, std::string filePathToTexture);
+	Label(float startX, float startY, float startW, float startH, GLTexture texture);
 	~Label();
 
 	void update();
@@ -17,7 +17,6 @@ public:
 	void setSelected(int state);
 
 private:
-	std::string textureFilePath;
 	int selected;					//int boolean 0 == false 1== true because opengl does not have a uniform bool value
 };
 

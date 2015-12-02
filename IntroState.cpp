@@ -6,8 +6,8 @@
 GLint textureLocation;
 GLint alphaValue;
 
-IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(200), background(0.0, 0.0, 1.0, 1.0, backgroundFilePath) {
-	
+IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(200), background(0.0, 0.0, 1.0, 1.0, backgroundTex) {
+
 }
 
 IntroState::~IntroState() {
@@ -29,18 +29,21 @@ void IntroState::init() {
 
 void IntroState::update() {
 	handleInput();
-	
+
 	if (tick < target / 3) {
 		alpha += 1.0f / (target / 3);
 		tick++;
-	} else if (tick >= target / 3 && tick < 2 * target / 3) {
+	}
+	else if (tick >= target / 3 && tick < 2 * target / 3) {
 		tick++;
-	} else if (tick >= target / 3 && tick < target) {
+	}
+	else if (tick >= target / 3 && tick < target) {
 		alpha -= 1.0f / (target / 3);
 		tick++;
-	} else if (tick >= target) {
-		 stateManager->loadState(StateManager::MAINMENU);
-	} 
+	}
+	else if (tick >= target) {
+		stateManager->loadState(StateManager::MAINMENU);
+	}
 }
 
 void IntroState::render() {

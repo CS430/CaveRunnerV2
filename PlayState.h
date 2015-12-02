@@ -8,6 +8,7 @@
 #include "GLSLProgram.h"
 #include "Obstacle.h"
 #include "Background.h"
+#include "ImageLoader.h"
 
 class PlayState : public State {
 public:
@@ -25,10 +26,10 @@ private:
 	Player *player;
 	Exit *exit;
 
-	const std::string& playerTexFilePath = "Resources/Images/player_idle_right.png";
-	const std::string& obstacleTexFilePath = "Resources/Images/untextured_block.png";
-	const std::string& exitTexFilePath = "Resources/Images/exit.png";
-	const std::string backgroundFilePath = "Resources/Images/cave_background.png";
+	const GLTexture playerStartTex = ImageLoader::loadPNG("Resources/Images/player_idle_right.png");
+	const GLTexture obstacleTex = ImageLoader::loadPNG("Resources/Images/untextured_block.png");
+	const GLTexture exitTex = ImageLoader::loadPNG("Resources/Images/exit.png");
+	const GLTexture backgroundTex = ImageLoader::loadPNG("Resources/Images/cave_background.png");
 
 	GLTexture playerTexture;
 

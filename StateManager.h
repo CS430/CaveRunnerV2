@@ -8,8 +8,7 @@ class StateManager {
 public:
 	const static int INTRO  = 0;
 	const static int MAINMENU = 1;
-	const static int PAUSED = 2;
-	const static int PLAY = 3;
+	const static int PLAY = 2;
 
 	StateManager();
 	~StateManager();
@@ -26,7 +25,7 @@ public:
 	void render();
 
 private:
-	const static int NUM_OF_STATES = 4;
+	const static int NUM_OF_STATES = 3;
 
 	int currentState;
 	int previousState;

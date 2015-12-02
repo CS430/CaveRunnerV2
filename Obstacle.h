@@ -5,7 +5,7 @@
 
 class Obstacle : public Entity {
 public:
-	Obstacle(float xPos, float yPos, float width, float height, std::string texturePath);
+	Obstacle(float xPos, float yPos, float width, float height, GLTexture texture);
 	~Obstacle();
 
 	void update();

@@ -5,7 +5,7 @@
 
 class Exit : public Entity {
 public:
-	Exit(float startX, float startY, float startW, float startH, std::string filePath);
+	Exit(float startX, float startY, float startW, float startH, GLTexture texture);
 	~Exit();
 
 	void update();

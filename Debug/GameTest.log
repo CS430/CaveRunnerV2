@@ -1,33 +1,22 @@
-﻿Build started 12/1/2015 20:51:36.
+﻿Build started 12/2/2015 01:57:18.
      1>Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp Exit.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp Obstacle.cpp PauseState.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp Exit.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp Obstacle.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
          StateManager.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(50): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(44): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
          Sprite.cpp
          PlayState.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(28): warning C4413: 'PlayState::playerTexFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
-                 c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(28) : see declaration of 'PlayState::playerTexFilePath'
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(29): warning C4413: 'PlayState::obstacleTexFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
-                 c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(29) : see declaration of 'PlayState::obstacleTexFilePath'
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(30): warning C4413: 'PlayState::exitTexFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
-                 c:\users\ckosidowski11\documents\github\caverunnerv2\playstate.h(30) : see declaration of 'PlayState::exitTexFilePath'
          Player.cpp
          picoPNG.cpp
-         PauseState.cpp
          Obstacle.cpp
          MainMenuState.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(24): warning C4413: 'MainMenuState::playTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
-                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(24) : see declaration of 'MainMenuState::playTextureFilePath'
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(25): warning C4413: 'MainMenuState::quitTextureFilePath' : reference member is initialized to a temporary that doesn't persist after the constructor exits
-                 c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.h(25) : see declaration of 'MainMenuState::quitTextureFilePath'
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(12): warning C4305: 'argument' : truncation from 'double' to 'float'
      1>c:\users\ckosidowski11\documents\github\caverunnerv2\mainmenustate.cpp(13): warning C4305: 'argument' : truncation from 'double' to 'float'
          Label.cpp
          Keys.cpp
          IOManager.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(16): warning C4244: 'initializing' : conversion from 'std::streamoff' to 'int', possible loss of data
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(19): warning C4244: '-=' : conversion from 'std::streamoff' to 'int', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(17): warning C4244: 'initializing' : conversion from 'std::streamoff' to 'int', possible loss of data
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\iomanager.cpp(20): warning C4244: '-=' : conversion from 'std::streamoff' to 'int', possible loss of data
          IntroState.cpp
          ImageLoader.cpp
          GLSLProgram.cpp
@@ -52,7 +41,6 @@
          Debug\Label.obj
          Debug\MainMenuState.obj
          Debug\Obstacle.obj
-         Debug\PauseState.obj
          Debug\picoPNG.obj
          Debug\Player.obj
          Debug\PlayState.obj
@@ -64,4 +52,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:08.39
+Time Elapsed 00:00:08.66

@@ -91,3 +91,12 @@ void Sprite::setH(float newH) {
 void Sprite::setW(float newW) {
 	width = newW;
 }
+
+void Sprite::setPhysicalAttributes(float x, float y, float width, float height) {
+	this->y = y;
+	this->x = x;
+	this->height = height;
+	this->width = width;
+
+	update();
+}

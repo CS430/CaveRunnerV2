@@ -21,6 +21,8 @@ public:
 	void setH(float newH);
 	void setW(float newW);
 
+	void setPhysicalAttributes(float x, float y, float width, float height);
+
 private:
 	float x;
 	float y;

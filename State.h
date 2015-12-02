@@ -2,6 +2,7 @@
 #define STATE_H
 
 #include "StateManager.h"
+#include "GLSLProgram.h"
 
 class State {
 public:
@@ -12,7 +13,7 @@ public:
 									//the state of different key presses in our key class. we will then check the key class
 									//in this function to determin if a key we use in a particular state is pressed \.
 protected:
-	StateManager stateManager;
+	StateManager* stateManager;
 };
 
 #endif

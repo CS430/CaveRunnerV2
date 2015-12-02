@@ -7,6 +7,7 @@ bool IOManager::readFileToBUffer(std::string filePath, std::vector<unsigned char
 
 	if (file.fail()) {
 		fprintf(stderr, "Error reading file: %s", filePath);
+
 		return false;
 	}
 
@@ -19,7 +20,7 @@ bool IOManager::readFileToBUffer(std::string filePath, std::vector<unsigned char
 	fileSize -= file.tellg();
 
 	buffer.resize(fileSize);
-	file.read((char *) &(buffer[0]),fileSize);
+	file.read((char *)&(buffer[0]), fileSize);
 	file.close();
 
 	return true;

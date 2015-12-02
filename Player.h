@@ -7,7 +7,7 @@
 
 class Player : public Entity {
 public:
-	Player(float startX, float startY, float startW, float startH, std::string filePath);
+	Player(float startX, float startY, float startW, float startH, GLTexture texture);
 	~Player();
 
 	const float gravity = 0.00075f;
@@ -19,6 +19,10 @@ public:
 
 	void update();
 	void render();
+
+	void jump();
+	void goLeft();
+	void goRight();
 
 	void setHasJumped(bool j);
 	bool getHasJumped();
@@ -48,6 +52,8 @@ public:
 	GLTexture jumpLeft;
 	GLTexture fallRight;
 	GLTexture fallLeft;
+	GLTexture standingSlideRight;
+	GLTexture standingSlideLeft;
 	
 private:
 	bool isCrouching;
@@ -56,6 +62,8 @@ private:
 	bool hasDoubleJumped;
 	bool isFacingRight;
 	bool isDead;
+
+	void switchHeightAndWidth();
 };
 
 #endif

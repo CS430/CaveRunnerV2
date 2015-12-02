@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-StateManager::StateManager() : previousState(-1), currentState(-1), gameStates(4) {
+StateManager::StateManager() : previousState(-1), currentState(-1), gameStates(3) {
 
 }
 
@@ -24,26 +24,20 @@ void StateManager::loadState(int state) {
 	unloadState(previousState);
 
 	switch (state) {
-		case INTRO:
-			gameStates[state] = new IntroState(this);
-			break;
+	case INTRO:
+		gameStates[state] = new IntroState(this);
+		break;
 
-		case MAINMENU:
-			gameStates[state] = new MainMenuState(this);
-			break;
+	case MAINMENU:
+		gameStates[state] = new MainMenuState(this);
+		break;
 
-		case PLAY:
-			gameStates[state] = new PlayState(this);
-			break;
-
-		case PAUSED:
-			gameStates[state] = new PauseState(this);
-			break;
+	case PLAY:
+		gameStates[state] = new PlayState(this);
+		break;
 	}
 
 	gameStates[currentState]->init();
-
-	fprintf(stdout, "State Loaded %i \n", state);
 }
 
 void StateManager::unloadState(int state) {

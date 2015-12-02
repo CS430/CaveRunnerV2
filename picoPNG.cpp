@@ -21,7 +21,7 @@ to know this information yourself to be able to use the data so this only
 works for trusted PNG files. Use LodePNG instead of picoPNG if you need this information.
 return: 0 if success, not 0 if some error occured.
 */
-int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width, unsigned long& image_height, const unsigned char* in_png, size_t in_size, bool convert_to_rgba32 )
+int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width, unsigned long& image_height, const unsigned char* in_png, size_t in_size, bool convert_to_rgba32)
 {
 	// picoPNG version 20101224
 	// Copyright (c) 2005-2010 Lode Vandevenne
@@ -74,17 +74,17 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
 				for (unsigned long n = 0; n < numcodes; n++) if (bitlen[n] != 0) tree1d[n] = nextcode[bitlen[n]]++; //generate all the codes
 				tree2d.clear(); tree2d.resize(numcodes * 2, 32767); //32767 here means the tree2d isn't filled there yet
 				for (unsigned long n = 0; n < numcodes; n++) //the codes
-					for (unsigned long i = 0; i < bitlen[n]; i++) //the bits for this code
+				for (unsigned long i = 0; i < bitlen[n]; i++) //the bits for this code
+				{
+					unsigned long bit = (tree1d[n] >> (bitlen[n] - i - 1)) & 1;
+					if (treepos > numcodes - 2) return 55;
+					if (tree2d[2 * treepos + bit] == 32767) //not yet filled in
 					{
-						unsigned long bit = (tree1d[n] >> (bitlen[n] - i - 1)) & 1;
-						if (treepos > numcodes - 2) return 55;
-						if (tree2d[2 * treepos + bit] == 32767) //not yet filled in
-						{
-							if (i + 1 == bitlen[n]) { tree2d[2 * treepos + bit] = n; treepos = 0; } //last bit
-							else { tree2d[2 * treepos + bit] = ++nodefilled + numcodes; treepos = nodefilled; } //addresses are encoded as values > numcodes
-						}
-						else treepos = tree2d[2 * treepos + bit] - numcodes; //subtract numcodes from address to get address value
+						if (i + 1 == bitlen[n]) { tree2d[2 * treepos + bit] = n; treepos = 0; } //last bit
+						else { tree2d[2 * treepos + bit] = ++nodefilled + numcodes; treepos = nodefilled; } //addresses are encoded as values > numcodes
 					}
+					else treepos = tree2d[2 * treepos + bit] - numcodes; //subtract numcodes from address to get address value
+				}
 				return 0;
 			}
 			int decode(bool& decoded, unsigned long& result, size_t& treepos, unsigned long bit) const
@@ -327,13 +327,13 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
 			{
 				size_t linestart = 0, linelength = (info.width * bpp + 7) / 8; //length in bytes of a scanline, excluding the filtertype byte
 				if (bpp >= 8) //byte per byte
-					for (unsigned long y = 0; y < info.height; y++)
-					{
-						unsigned long filterType = scanlines[linestart];
-						const unsigned char* prevline = (y == 0) ? 0 : &out_[(y - 1) * info.width * bytewidth];
-						unFilterScanline(&out_[linestart - y], &scanlines[linestart + 1], prevline, bytewidth, filterType, linelength); if (error) return;
-						linestart += (1 + linelength); //go to start of next scanline
-					}
+				for (unsigned long y = 0; y < info.height; y++)
+				{
+					unsigned long filterType = scanlines[linestart];
+					const unsigned char* prevline = (y == 0) ? 0 : &out_[(y - 1) * info.width * bytewidth];
+					unFilterScanline(&out_[linestart - y], &scanlines[linestart + 1], prevline, bytewidth, filterType, linelength); if (error) return;
+					linestart += (1 + linelength); //go to start of next scanline
+				}
 				else //less than 8 bits per pixel, so fill it up bit per bit
 				{
 					std::vector<unsigned char> templine((info.width * bpp + 7) >> 3); //only used if bpp < 8
@@ -462,63 +462,63 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
 			out.resize(numpixels * 4);
 			unsigned char* out_ = out.empty() ? 0 : &out[0]; //faster if compiled without optimization
 			if (infoIn.bitDepth == 8 && infoIn.colorType == 0) //greyscale
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[i];
-					out_[4 * i + 3] = (infoIn.key_defined && in[i] == infoIn.key_r) ? 0 : 255;
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[i];
+				out_[4 * i + 3] = (infoIn.key_defined && in[i] == infoIn.key_r) ? 0 : 255;
+			}
 			else if (infoIn.bitDepth == 8 && infoIn.colorType == 2) //RGB color
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					for (size_t c = 0; c < 3; c++) out_[4 * i + c] = in[3 * i + c];
-					out_[4 * i + 3] = (infoIn.key_defined == 1 && in[3 * i + 0] == infoIn.key_r && in[3 * i + 1] == infoIn.key_g && in[3 * i + 2] == infoIn.key_b) ? 0 : 255;
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				for (size_t c = 0; c < 3; c++) out_[4 * i + c] = in[3 * i + c];
+				out_[4 * i + 3] = (infoIn.key_defined == 1 && in[3 * i + 0] == infoIn.key_r && in[3 * i + 1] == infoIn.key_g && in[3 * i + 2] == infoIn.key_b) ? 0 : 255;
+			}
 			else if (infoIn.bitDepth == 8 && infoIn.colorType == 3) //indexed color (palette)
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					if (4U * in[i] >= infoIn.palette.size()) return 46;
-					for (size_t c = 0; c < 4; c++) out_[4 * i + c] = infoIn.palette[4 * in[i] + c]; //get rgb colors from the palette
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				if (4U * in[i] >= infoIn.palette.size()) return 46;
+				for (size_t c = 0; c < 4; c++) out_[4 * i + c] = infoIn.palette[4 * in[i] + c]; //get rgb colors from the palette
+			}
 			else if (infoIn.bitDepth == 8 && infoIn.colorType == 4) //greyscale with alpha
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[2 * i + 0];
-					out_[4 * i + 3] = in[2 * i + 1];
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[2 * i + 0];
+				out_[4 * i + 3] = in[2 * i + 1];
+			}
 			else if (infoIn.bitDepth == 8 && infoIn.colorType == 6) for (size_t i = 0; i < numpixels; i++) for (size_t c = 0; c < 4; c++) out_[4 * i + c] = in[4 * i + c]; //RGB with alpha
 			else if (infoIn.bitDepth == 16 && infoIn.colorType == 0) //greyscale
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[2 * i];
-					out_[4 * i + 3] = (infoIn.key_defined && 256U * in[i] + in[i + 1] == infoIn.key_r) ? 0 : 255;
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[2 * i];
+				out_[4 * i + 3] = (infoIn.key_defined && 256U * in[i] + in[i + 1] == infoIn.key_r) ? 0 : 255;
+			}
 			else if (infoIn.bitDepth == 16 && infoIn.colorType == 2) //RGB color
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					for (size_t c = 0; c < 3; c++) out_[4 * i + c] = in[6 * i + 2 * c];
-					out_[4 * i + 3] = (infoIn.key_defined && 256U * in[6 * i + 0] + in[6 * i + 1] == infoIn.key_r && 256U * in[6 * i + 2] + in[6 * i + 3] == infoIn.key_g && 256U * in[6 * i + 4] + in[6 * i + 5] == infoIn.key_b) ? 0 : 255;
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				for (size_t c = 0; c < 3; c++) out_[4 * i + c] = in[6 * i + 2 * c];
+				out_[4 * i + 3] = (infoIn.key_defined && 256U * in[6 * i + 0] + in[6 * i + 1] == infoIn.key_r && 256U * in[6 * i + 2] + in[6 * i + 3] == infoIn.key_g && 256U * in[6 * i + 4] + in[6 * i + 5] == infoIn.key_b) ? 0 : 255;
+			}
 			else if (infoIn.bitDepth == 16 && infoIn.colorType == 4) //greyscale with alpha
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[4 * i]; //most significant byte
-					out_[4 * i + 3] = in[4 * i + 2];
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = in[4 * i]; //most significant byte
+				out_[4 * i + 3] = in[4 * i + 2];
+			}
 			else if (infoIn.bitDepth == 16 && infoIn.colorType == 6) for (size_t i = 0; i < numpixels; i++) for (size_t c = 0; c < 4; c++) out_[4 * i + c] = in[8 * i + 2 * c]; //RGB with alpha
 			else if (infoIn.bitDepth < 8 && infoIn.colorType == 0) //greyscale
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					unsigned long value = (readBitsFromReversedStream(bp, in, infoIn.bitDepth) * 255) / ((1 << infoIn.bitDepth) - 1); //scale value from 0 to 255
-					out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = (unsigned char)(value);
-					out_[4 * i + 3] = (infoIn.key_defined && value && ((1U << infoIn.bitDepth) - 1U) == infoIn.key_r && ((1U << infoIn.bitDepth) - 1U)) ? 0 : 255;
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				unsigned long value = (readBitsFromReversedStream(bp, in, infoIn.bitDepth) * 255) / ((1 << infoIn.bitDepth) - 1); //scale value from 0 to 255
+				out_[4 * i + 0] = out_[4 * i + 1] = out_[4 * i + 2] = (unsigned char)(value);
+				out_[4 * i + 3] = (infoIn.key_defined && value && ((1U << infoIn.bitDepth) - 1U) == infoIn.key_r && ((1U << infoIn.bitDepth) - 1U)) ? 0 : 255;
+			}
 			else if (infoIn.bitDepth < 8 && infoIn.colorType == 3) //palette
-				for (size_t i = 0; i < numpixels; i++)
-				{
-					unsigned long value = readBitsFromReversedStream(bp, in, infoIn.bitDepth);
-					if (4 * value >= infoIn.palette.size()) return 47;
-					for (size_t c = 0; c < 4; c++) out_[4 * i + c] = infoIn.palette[4 * value + c]; //get rgb colors from the palette
-				}
+			for (size_t i = 0; i < numpixels; i++)
+			{
+				unsigned long value = readBitsFromReversedStream(bp, in, infoIn.bitDepth);
+				if (4 * value >= infoIn.palette.size()) return 47;
+				for (size_t c = 0; c < 4; c++) out_[4 * i + c] = infoIn.palette[4 * value + c]; //get rgb colors from the palette
+			}
 			return 0;
 		}
 		unsigned char paethPredictor(short a, short b, short c) //Paeth predicter, used by PNG filter type 4

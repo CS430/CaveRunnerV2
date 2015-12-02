@@ -5,7 +5,7 @@
 
 class Background : public Entity {
 public:
-	Background(float startX, float startY, float startW, float startH, std::string filePathToTexture);
+	Background(float startX, float startY, float startW, float startH, GLTexture texture);
 	~Background();
 
 	void update();

@@ -1,6 +1,6 @@
 #include "Exit.h"
 
-Exit::Exit(float xPos, float yPos, float width, float height, std::string texturePath) : Entity(xPos, yPos, width, height, texturePath) {
+Exit::Exit(float xPos, float yPos, float width, float height, GLTexture texture) : Entity(xPos, yPos, width, height, texture) {
 	objSprite.init();
 
 	objSprite.setX(xPos);

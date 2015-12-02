@@ -5,7 +5,7 @@
 
 #include <GLFW\glfw3.h>
 
-Player::Player(float xPos, float yPos, float startW, float startH, std::string filePath) : Entity(xPos, yPos, startW, startH, filePath) {
+Player::Player(float xPos, float yPos, float startW, float startH, GLTexture texture) : Entity(xPos, yPos, startW, startH, texture) {
 	objSprite.init();
 
 	slideRight = ImageLoader::loadPNG("Resources/Images/player_slide_right.png");
@@ -18,10 +18,51 @@ Player::Player(float xPos, float yPos, float startW, float startH, std::string f
 	jumpLeft = ImageLoader::loadPNG("Resources/Images/player_jump_1_left.png");
 	fallRight = ImageLoader::loadPNG("Resources/Images/player_fall_1_right.png");
 	fallLeft = ImageLoader::loadPNG("Resources/Images/player_fall_1_left.png");
+	standingSlideRight = ImageLoader::loadPNG("Resources/Images/player_standing_slide_right.png");
+	standingSlideLeft = ImageLoader::loadPNG("Resources/Images/player_standing_slide_left.png");
 }
 
 Player::~Player() {
 
+}
+
+void Player::jump() {
+	if (!isCrouching) {
+		if (!hasJumped) {
+			yAccel = jumpAccel;
+			hasJumped = true;
+		}
+		else if (!hasDoubleJumped) {
+			yAccel = jumpAccel;
+			hasDoubleJumped = true;
+		}
+	}
+}
+
+void Player::goLeft() {
+	if (xAccel < maxPlayerSpeed / 2) {
+		if (!isCrouching && xAccel > -maxPlayerSpeed) {
+			float accel = !hasJumped ? playerAcccel : (playerAcccel * airResistance);
+
+			xAccel -= accel;
+		}
+
+		objTexture = runLeft;
+		isFacingRight = false;
+	}
+}
+
+void Player::goRight() {
+	if (xAccel > -maxPlayerSpeed / 2) {
+		if (!isCrouching && xAccel < maxPlayerSpeed) {
+			float accel = !hasJumped ? playerAcccel : (playerAcccel * airResistance);
+
+			xAccel += accel;
+		}
+
+		objTexture = runRight;
+		isFacingRight = true;
+	}
 }
 
 void Player::setHasJumped(bool j) {
@@ -52,16 +93,23 @@ void Player::update() {
 	if (yAccel > 0.0f) {
 		setTexture(isFacingRight ? jumpRight : jumpLeft);
 		hasJumped = true;
-	} else if (yAccel < 0.0f) {
+	}
+	else if (yAccel < 0.0f) {
 		setTexture(isFacingRight ? fallRight : fallLeft);
 		hasJumped = true;
 	}
 
-	if (xAccel >= playerAcccel / 10.0f) {
-		xAccel -= !hasJumped ? friction : friction * airResistance;
-	} else if (xAccel <= -playerAcccel / 10.0f) {
-		xAccel += !hasJumped ? friction : friction * airResistance;
-	} else {
+	if (xAccel >= playerAcccel * airResistance) {
+		float tempFriction = !hasJumped ? friction : friction * airResistance;
+
+		xAccel = (xAccel - tempFriction < 0.0f ? 0.0f : xAccel - tempFriction);
+	}
+	else if (xAccel <= -playerAcccel * airResistance) {
+		float tempFriction = !hasJumped ? friction : friction * airResistance;
+
+		xAccel = (xAccel + tempFriction > 0.0f ? 0.0f : xAccel + tempFriction);
+	}
+	else {
 		xAccel = 0.0f;
 	}
 
@@ -69,15 +117,11 @@ void Player::update() {
 		setTexture(isFacingRight ? slideRight : slideLeft);
 
 		if (!wasCrouching) {
-			height = height + width;
-			width = height - width;
-			height = height - width;
+			switchHeightAndWidth();
 
 			wasCrouching = true;
 		}
 	}
-
-	objSprite.setY(y += yAccel -= gravity);
 
 	if (y + height <= -1.0f) {
 		yAccel = 0.0f;
@@ -85,19 +129,19 @@ void Player::update() {
 		isDead = true;
 	}
 
-	objSprite.setX(x += xAccel);
-
-	objSprite.setH(height);
-	objSprite.update();
-	objSprite.setW(width);
+	objSprite.setPhysicalAttributes(x += xAccel, y += yAccel -= gravity, width, height);
 
 	if (wasCrouching && !isCrouching) {
-		height = height + width;
-		width = height - width;
-		height = height - width;
+		switchHeightAndWidth();
 
 		wasCrouching = false;
 	}
+}
+
+void Player::switchHeightAndWidth() {
+	height = height + width;
+	width = height - width;
+	height = height - width;
 }
 
 void Player::render() {

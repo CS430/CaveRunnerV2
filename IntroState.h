@@ -4,6 +4,7 @@
 #include "State.h"
 #include "GLSLProgram.h"
 #include "Background.h"
+#include "ImageLoader.h"
 
 class IntroState : public State {
 public:
@@ -22,15 +23,12 @@ private:
 	int target;
 
 	//filepath to our image resource
-	const std::string backgroundFilePath = "Resources/Images/caverunnersplash.png";
-	
-	//State Manager
+	const GLTexture backgroundTex = ImageLoader::loadPNG("Resources/Images/caverunnersplash.png");
+
 	StateManager* stateManager;
 
-	//our shader program 
 	GLSLProgram shader;
 
-	//our entity
 	Background background;
 };
 
