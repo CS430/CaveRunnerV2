@@ -90,6 +90,7 @@
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="WinState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="WinState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="IntroFragShader.glsl" />
@@ -120,6 +122,8 @@
     <None Include="MenuVertShader.glsl" />
     <None Include="PlayFragShader.glsl" />
     <None Include="PlayVertShader.glsl" />
+    <None Include="WinFragShader.glsl" />
+    <None Include="WinVertShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

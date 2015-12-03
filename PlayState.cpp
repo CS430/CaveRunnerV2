@@ -178,7 +178,6 @@ void PlayState::render() {
 		&& player->getTopBound() > exit->getBottomBound()
 		&& player->getLeftBound() < exit->getXPosition()
 		&& player->getRightBound() > exit->getXPosition()) {
-
 		if (currentStage == 1) {
 			obstacles = lvl2Obstacles;
 			exit = lvl2Exit;
@@ -186,6 +185,9 @@ void PlayState::render() {
 		else if (currentStage == 2) {
 			obstacles = lvl3Obstacles;
 			exit = lvl3Exit;
+		}
+		else if (currentStage == 3) {
+			stateManager->loadState(StateManager::WIN);
 		}
 
 		player->setPosition(0.0f, 0.0f);

@@ -1,9 +1,10 @@
-﻿Build started 12/2/2015 17:13:43.
+﻿Build started 12/2/2015 21:58:55.
      1>Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp Exit.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp Obstacle.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opengl-wrappers\glew\glew-1.13.0\include" /I"C:\opengl-wrappers\glfw\glfw-3.1.2.bin.WIN32\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Background.cpp Driver.cpp Entity.cpp Exit.cpp GameScreen.cpp GLSLProgram.cpp ImageLoader.cpp IntroState.cpp IOManager.cpp Keys.cpp Label.cpp MainMenuState.cpp Obstacle.cpp picoPNG.cpp Player.cpp PlayState.cpp Sprite.cpp StateManager.cpp WinState.cpp
+         WinState.cpp
          StateManager.cpp
-     1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(44): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+     1>c:\users\ckosidowski11\documents\github\caverunnerv2\statemanager.cpp(48): warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
          Sprite.cpp
          PlayState.cpp
          Player.cpp
@@ -47,10 +48,11 @@
          Debug\PlayState.obj
          Debug\Sprite.obj
          Debug\StateManager.obj
+         Debug\WinState.obj
      1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
          GameTest.vcxproj -> C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\Debug\GameTest.exe
      1>Done Building Project "C:\Users\CKosidowski11\Documents\GitHub\CaveRunnerV2\GameTest.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:11.48
+Time Elapsed 00:00:08.44

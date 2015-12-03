@@ -37,6 +37,9 @@
     <Filter Include="shaders\PlayStateShaders">
       <UniqueIdentifier>{fd273013-4eed-412e-a5c7-3bc665256ffb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\WinStateShaders">
+      <UniqueIdentifier>{27418c2a-f0cd-40e8-ae16-688a2a1352e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Driver.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="Exit.cpp">
       <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="WinState.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +161,9 @@
     <ClInclude Include="Exit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WinState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MenuFragShader.glsl">
@@ -174,6 +183,12 @@
     </None>
     <None Include="PlayVertShader.glsl">
       <Filter>shaders\PlayStateShaders</Filter>
+    </None>
+    <None Include="WinFragShader.glsl">
+      <Filter>shaders\WinStateShaders</Filter>
+    </None>
+    <None Include="WinVertShader.glsl">
+      <Filter>shaders\WinStateShaders</Filter>
     </None>
   </ItemGroup>
 </Project>

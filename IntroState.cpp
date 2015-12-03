@@ -3,7 +3,7 @@
 #include <GLFW\glfw3.h>
 #include "keys.h"
 
-GLint textureLocation;
+GLint winTextureLocation;
 GLint alphaValue;
 
 IntroState::IntroState(StateManager* sm) : stateManager(sm), tick(0), alpha(0.0f), target(200), background(0.0, 0.0, 1.0, 1.0, backgroundTex) {
@@ -21,7 +21,7 @@ void IntroState::init() {
 	shader.addAttribute("vertexUV");
 	shader.linkShaders();
 
-	textureLocation = shader.getUniformLocation("mySampler");
+	winTextureLocation = shader.getUniformLocation("mySampler");
 	alphaValue = shader.getUniformLocation("alphaValue");
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -48,7 +48,7 @@ void IntroState::update() {
 
 void IntroState::render() {
 	shader.use();
-	glUniform1i(textureLocation, 0);
+	glUniform1i(winTextureLocation, 0);
 	glUniform1f(alphaValue, alpha);
 
 	background.render();

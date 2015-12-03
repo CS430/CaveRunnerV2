@@ -9,6 +9,7 @@ public:
 	const static int INTRO  = 0;
 	const static int MAINMENU = 1;
 	const static int PLAY = 2;
+	const static int WIN = 3;
 
 	StateManager();
 	~StateManager();
@@ -25,7 +26,7 @@ public:
 	void render();
 
 private:
-	const static int NUM_OF_STATES = 3;
+	const static int NUM_OF_STATES = 4;
 
 	int currentState;
 	int previousState;

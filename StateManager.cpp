@@ -1,12 +1,12 @@
 #include "StateManager.h"
 #include "IntroState.h"
 #include "PlayState.h"
-#include "PauseState.h"
+#include "WinState.h"
 #include "MainMenuState.h"
 
 #include <iostream>
 
-StateManager::StateManager() : previousState(-1), currentState(-1), gameStates(3) {
+StateManager::StateManager() : previousState(-1), currentState(-1), gameStates(NUM_OF_STATES) {
 
 }
 
@@ -34,6 +34,10 @@ void StateManager::loadState(int state) {
 
 	case PLAY:
 		gameStates[state] = new PlayState(this);
+		break;
+
+	case WIN:
+		gameStates[state] = new WinState(this);
 		break;
 	}
 
