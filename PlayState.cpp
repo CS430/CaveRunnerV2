@@ -41,7 +41,14 @@ PlayState::PlayState(StateManager *sm) : stateManager(sm), background(0.0f, 0.0f
 	};
 
 	lvl2Obstacles = {
-		new Obstacle(0.0f, -1.0f, 3.0f, 0.1f, obstacleTex)
+		new Obstacle(0.15f, -1.0f, 0.3f, 0.1f, obstacleTex),
+		new Obstacle(-0.85f, 0.0f, 0.75f, 1.1f, obstacleTex),
+		new Obstacle(0.15f, -0.2f, 0.05f, 0.85f, obstacleTex),
+		new Obstacle(1.1f, 0.6f, 1.0f, 0.075f, obstacleTex),
+		new Obstacle(1.1f, 1.0f, 1.2f, 0.075f, obstacleTex),
+		new Obstacle(3.0f, 0.0f, 0.75f, 1.1f, obstacleTex),
+		new Obstacle(2.05f, 0.15f, 0.05f, 0.45f, obstacleTex),
+		new Obstacle(2.05f, 0.9f, 0.05f, 0.1f, obstacleTex)
 	};
 
 	lvl3Obstacles = {
@@ -51,9 +58,10 @@ PlayState::PlayState(StateManager *sm) : stateManager(sm), background(0.0f, 0.0f
 		new Obstacle(0.7f, 0.9f, 0.05f, 0.25f, obstacleTex),
 		new Obstacle(-0.60f, -1.0f, 0.65f, 0.1f, obstacleTex),
 		new Obstacle(-1.85f, -0.0f, 0.75f, 1.1f, obstacleTex),
-		new Obstacle(4.0f, -1.0f, 0.025f, 0.5f, obstacleTex),
-		new Obstacle(4.25f, -1.0f, 0.025f, 0.95f, obstacleTex),
-		new Obstacle(5.225f, -1.0f, 0.75f, 1.4f, obstacleTex)
+		new Obstacle(4.0f, -0.95f, 0.05f, 0.5f, obstacleTex),
+		new Obstacle(4.25f, 0.55f, 0.05f, 0.5f, obstacleTex),
+		new Obstacle(5.225f, -0.35f, 0.6f, 0.75f, obstacleTex),
+		new Obstacle(5.75f, 0.0f, 0.75f, 1.1f, obstacleTex)
 	};
 
 	obstacles = lvl1Obstacles;
@@ -61,7 +69,7 @@ PlayState::PlayState(StateManager *sm) : stateManager(sm), background(0.0f, 0.0f
 	player = new Player(0.0f, 0.0f, 0.04f, 0.08f, playerStartTex);
 
 	lvl1Exit = new Exit(5.0f, -0.825f, 0.0375f, 0.075f, exitTex);
-	lvl2Exit = new Exit(0.5f, -0.825f, 0.0375f, 0.075f, exitTex);
+	lvl2Exit = new Exit(0.325f, -0.825f, 0.0375f, 0.075f, exitTex);
 	lvl3Exit = new Exit(4.75f, 0.475f, 0.0375f, 0.075f, exitTex);
 
 	exit = lvl1Exit;
